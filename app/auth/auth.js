@@ -28,7 +28,6 @@ angular.module('email.auth', [])
 		})
 	}])
 
-	.run(['variables', function(variables) {}])
 	.controller('loginCtrl', ['$scope', '$http', 'variables', 'store', '$location',
 		function($scope, $http, variables, store, $location) {
             if (store.get('jwt')) $location.path('/emails')
@@ -49,7 +48,6 @@ angular.module('email.auth', [])
 		}])
 	.controller('registerCtrl', ['$scope', '$http', 'variables', 'store', '$location',
 		function($scope, $http, variables, store, $location) {
-            console.log(store.get('jwt'))
             if (store.get('jwt')) $location.path('/emails')
 
             $scope.error = '';

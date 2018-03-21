@@ -17,9 +17,9 @@ const defaultFontFamily = [
 
 const emailBuilderConfigurations = {
   assetsPath: 'http://localhost:9000/assets',
-  layoutsPath: '/builder/layouts', // Path of builder
-  authPath: '/auth/layouts', // Path of auth
-  listPath: '/list/layouts', // Path of lidy
+  layoutsPath: 'builder/layouts', // Path of builder
+  authPath: 'auth/layouts', // Path of auth
+  listPath: 'list/layouts', // Path of list
   defaultLayout: 'modern', // modern or material
   defaultSkin: 'light', // light or dark
   urlToUploadImage: '//uploads.im/api',

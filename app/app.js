@@ -12,11 +12,6 @@ angular.module('email', [
 .config(['$locationProvider', 'jwtInterceptorProvider', '$routeProvider', '$httpProvider', function($locationProvider, jwtInterceptorProvider, $routeProvider, $httpProvider) {
 	$routeProvider.otherwise({redirectTo: '/'});
 	$locationProvider.hashPrefix('!');
-
-	jwtInterceptorProvider.tokenGetter = function(store) {
-		return store.get('jwt');
-	}
-	$httpProvider.interceptors.push('jwtInterceptor');
 }])
 .run(function($rootScope, store, jwtHelper, $location) {
 	$rootScope.$on('$routeChangeStart', function(e, to) {
