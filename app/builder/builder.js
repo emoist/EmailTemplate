@@ -1050,7 +1050,7 @@ angular.module('email.builder', [
                     try {
                         var email = {}
                         if (email_id == 'create') {
-                            resolve(defaultEmail);
+                            resolve(JSON.parse(JSON.stringify(defaultEmail)));
                         }
                         else {
                             $http.post('/emails/' + email_id, {user_id: user.id})
@@ -1110,7 +1110,7 @@ angular.module('email.builder', [
              */
             delete: function () {
                 return new Promise(function (resolve, reject) {
-                    resolve(defaultEmail)
+                    resolve(JSON.parse(JSON.stringify(defaultEmail)))
                 })
             }
         };
@@ -1162,8 +1162,8 @@ angular.module('email.builder', [
         });
     }])
 
-    .controller('emailCtrl', ['$scope', 'utils', 'storage', 'dragulaService', '$interpolate', '$translate', '$templateCache', 'variables' ,'$routeParams',
-        function ($scope, utils, storage, dragulaService, $interpolate, $translate, $templateCache, variables, $routeParams) {
+    .controller('emailCtrl', ['$scope', 'utils', 'storage', 'dragulaService', '$interpolate', '$translate', '$templateCache', 'variables' ,'$routeParams', 'store', '$location',
+        function ($scope, utils, storage, dragulaService, $interpolate, $translate, $templateCache, variables, $routeParams, store, $location) {
             $scope.email_id = $routeParams.id;
 
             /**
@@ -1391,17 +1391,15 @@ angular.module('email.builder', [
                     importedFile.onload = function () {
                         var importedData = JSON.parse(importedFile.result);
                         if (utils.validateEmail(importedData)) {
-                            storage.put(importedData).then(function () {
-                                utils.trackEvent('Email', 'import');
-                                $scope.$evalAsync(function () {
-                                    $scope.currentElement = undefined;
-                                    $scope.Email = importedData;
-                                    $scope.cloneEmail = JSON.parse(JSON.stringify(importedData));
-                                });
-                                utils.notify(utils.translate('email_has_been_imported', {
-                                    lastModified: new Date(fileToImport.lastModified).toLocaleString()
-                                })).success()
+                            utils.trackEvent('Email', 'import');
+                            $scope.$evalAsync(function () {
+                                $scope.currentElement = undefined;
+                                $scope.Email = importedData;
+                                $scope.cloneEmail = JSON.parse(JSON.stringify(importedData));
                             });
+                            utils.notify(utils.translate('email_has_been_imported', {
+                                lastModified: new Date(fileToImport.lastModified).toLocaleString()
+                            })).success()
                         } else {
                             utils.notify(utils.translate('imported_data_isnt_valid')).error()
                         }
@@ -1535,5 +1533,10 @@ angular.module('email.builder', [
                 // $scope.currentElement = undefined;
                 return false;
             });
+
+            $scope.logout = function() {
+                store.remove('jwt');
+                $location.path('/');
+            }
         }
     ]);
