@@ -1,0 +1,38 @@
+{
+  "name": "angular-email-builder",
+  "private": true,
+  "version": "2.1.0",
+  "description": "An Email builder based on AngularJS",
+  "license": "MIT",
+  "devDependencies": {
+    "bower": "^1.7.7",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-es6-transpiler": "^1.0.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-inject": "^4.2.0",
+    "gulp-less": "^3.3.2",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-string-replace": "^0.4.0",
+    "gulp-uglify": "^2.0.1",
+    "nodemon": "^1.11.0",
+    "run-sequence": "^1.2.2"
+  },
+  "scripts": {
+    "prestart": "npm install",
+    "dev": "nodemon ./server.js 9000",
+    "start": "gulp && set NODE_ENV=production && node server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "connect": "^3.6.2",
+    "connect-route": "^0.1.5",
+    "jsonwebtoken": "^1.1.2",
+    "lodash": "^2.4.1",
+    "mjml": "^3.3.3",
+    "mysql": "github:mysqljs/mysql",
+    "serve-static": "^1.12.3"
+  }
+}

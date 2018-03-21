@@ -1,0 +1,74 @@
+@import (less) "bower_components/angular-dragula/dist/dragula.css";
+@import (less) "bower_components/alertifyjs/dist/css/alertify.css";
+@import (less) "bower_components/angular-bootstrap-colorpicker/css/colorpicker.css";
+@import "_mixins";
+
+.colorpicker.dropdown {
+    background: white;
+    border: 1px solid @button_active_border;
+    border-radius: 3px;
+    box-shadow: 0 0 10px #ccc;
+    padding: .3em;
+
+    button.close.close-colorpicker {
+      display: none;
+    }
+
+    colorpicker-alpha, colorpicker-hue {
+      width: 25px;
+    }
+}
+  
+
+.gu-mirror {
+  cursor: move;
+  list-style: none;
+  background-color: @button_active_bg_color;
+  border: 1px solid @button_active_border;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: @button_active_color;
+  border-radius: 2px;
+  i {
+    font-size: 300%;
+    color: @white;
+  }
+  &.builder-element {
+    padding: 0;
+    background: @white;
+  }
+  & > .icons-actions, & > span {
+    display: none;
+  }
+}
+
+.icon-spin {
+  -webkit-animation-name: spin;
+  -webkit-animation-duration: 2000ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: spin;
+  -moz-animation-duration: 2000ms;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+
+  animation-name: spin;
+  animation-duration: 2000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@-moz-keyframes spin {
+  from { -moz-transform: rotate(0deg); }
+  to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
+}

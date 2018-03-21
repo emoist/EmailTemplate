@@ -1,0 +1,11 @@
+logs/*
+!.gitkeep
+node_modules/
+tmp
+.DS_Store
+.idea
+app/*.min.js
+app/*.min.css
+*.log
+angular-email-builder*
+_dist/*

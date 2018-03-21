@@ -1,0 +1,320 @@
+<div id="email-builder">
+    <div class="email-builder-preview-actions" ng-class="{preview: preview}">
+        <div class="md-btn-group">
+            <button class="md-btn md-btn-default" ng-class="{active: !mobilePreview}" ng-click="mobilePreview = false">Desktop</button>
+            <button class="md-btn md-btn-default" ng-class="{disabled: !Email.html.length, active: !!mobilePreview}" ng-disabled="!Email.html.length" ng-click="mobilePreview = true">Mobile</button>
+            <button class="md-btn md-btn-success" ng-if="hasChanges()" ng-click="saveEmailTemplate()">{{'email_save' | translate}}</button>
+        </div>
+        <i class="md-icon material-icons" ng-click="preview = false">close</i>
+    </div>
+    <div class="email-builder-header" ng-class="{preview: preview}">
+        <div class="email-builder-header-actions">
+            <h2>Logo</h2>
+            <div class="md-btn-group">
+                <button class="md-btn md-btn-flat md-btn-flat-danger md-btn-small" ng-class="{disabled: currentLanguage == 'en'}" ng-click="changeLanguage('en')">En</button>
+                <button class="md-btn md-btn-flat md-btn-flat-danger md-btn-small" ng-class="{disabled: currentLanguage == 'ru'}" ng-click="changeLanguage('ru')">Ru</button>
+            </div>
+        </div>
+
+        <div class="email-builder-header-actions">
+            <div class="md-btn-group">
+                <!--<i ng-if="!!currentElement" class="actions md-icon material-icons close md-color-red-600" title="{{'close_element_settings' | translate}}" ng-click="editElement(null)">close</i>-->
+                <i class="actions md-icon material-icons save md-color-green-600" title="{{'email_save' | translate}}" ng-class="{disabled: !hasChanges()}"
+                    ng-click="hasChanges() && saveEmailTemplate()">save</i>
+                <i class="actions md-icon material-icons" title="{{'email_settings' | translate}}" ng-class="{disabled: currentElement.type == 'emailSettings'}"
+                    ng-click="editElement('emailSettings')">settings</i>
+            </div>
+
+            <div class="md-btn-group">
+                <button class="md-btn md-btn-success" ng-click="previewEmail()">
+                    <i class="material-icons">remove_red_eye</i>
+                    {{'preview' | translate}}
+                </button>
+                <button class="md-btn md-btn-primary" ng-if="getVariable('importHtml')" ng-click="importEmail()">
+                    <i class="material-icons">undo</i>
+                    {{'import' | translate}}
+                </button>
+                <button class="md-btn md-btn-primary" ng-class="{disabled: hasChanges()}" ng-if="getVariable('exportHtml')" ng-click="openExportContainer()">
+                    <i class="material-icons">redo</i>
+                    {{'export' | translate}}
+                </button>
+                <button class="md-btn md-btn-warning" ng-if="getVariable('deleteAllBlocks')" ng-class="{disabled: !Email.elements.length}"
+                    ng-click="Email.elements.length && deleteAllElements()">
+                    <i class="material-icons">delete</i>
+                    {{'delete_all_elements' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="email-builder-content">
+        <div class="md-card" ng-class="{preview: preview}">
+            <div class="md-card-content elements-list">
+                <ul dragula='"element"'>
+                    <li ng-repeat="element in elements" data-type="{{element.type}}">
+                        <i class="material-icons" ng-bind-html="element.icon"></i>
+                        <!--<br>-->
+                        <span ng-bind="element.primary_head | translate"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div position-relative ng-class="{preview: preview, configured: !preview}">
+            <div class="builder">
+                <mobile-preview email="Email" ng-if="mobilePreview"></mobile-preview>
+                <div class="email-container" ng-if="!mobilePreview" ng-style="Email.emailSettings.options" ng-class="{empty: !Email.elements.length}" data-empty-template="{{'drag_and_drop_elements_here' | translate}}"
+                    dragula='"element-html"'>
+                    <div class="builder-element" ng-class="{selected: currentElement.id === element.id}" ng-repeat="element in Email.elements track by element.id"
+                        id="{{ element.id }}">
+                        <ng-include src="getTemplate(element.type)" ng-click="editElement(element.id)"></ng-include>
+                        <div class="icons-actions">
+                            <i ng-if="Email.elements.length > 1" title="{{'move_element' | translate}}" class="actions move material-icons">drag_handle</i>
+                            <i class="actions clone material-icons" title="{{'clone_element' | translate}}" ng-click="cloneElement(element.id)">content_copy</i>
+                            <br>
+                            <i class="actions delete material-icons" title="{{'delete_element' | translate}}" ng-click="removeElement(element.id)">delete</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="md-card" ng-class="{empty: preview}">
+            <div class="md-card-content">
+                <form action="#" onsubmit="return false">
+                    <div ng-repeat="(key, option) in currentElement.options" ng-if="currentElement.type != 'emailSettings'" class="email-builder-element-edit-field">
+
+                        <div ng-if="key.indexOf('image') > -1" class="block-properties">
+                            <div class="form-row text-inputs">
+                                <label for="builder_el_o_image_url" translate="builder_el_o_image_url"></label>
+                                <input-file-upload class="upload-image-container" model="currentElement.options[key]" element="currentElement.options"></input-file-upload>
+                            </div>
+                        </div>
+
+                        <div class="block-properties" ng-if="key.substring(0, 5) == 'width'">
+                            <div class="form-row text-inputs">
+                                <label for="builder_el_o_width" class="md-label">{{ 'builder_el_o_width' | translate }} {{ 'builder_el_image' | translate }}</label>
+                                <input id="builder_el_o_width" type="text" class="md-input" ng-model="currentElement.options[key]" />
+                            </div>
+                        </div>
+
+                        <div class="block-properties" ng-if="['title', 'subTitle'].indexOf(key) > -1 || key.search('altTag') > -1 || key == 'buttonText'">
+                            <div class="form-row text-inputs">
+                                <label for="{{key}}" class="md-label">{{ key | translate }}</label>
+                                <input id="{{key}}" type="text" class="md-input" ng-model="currentElement.options[key]" />
+                            </div>
+                        </div>
+
+                        <div class="block-properties" ng-if="key == 'links'">
+                            <h3>{{'social_links' | translate}}</h3>
+                            <div class="form-row color-inputs">
+                                <!--<label for="network">{{'network' | <t></t>ranslate}}</label>-->
+                                <select class="md-input" id="network" ng-change="addSocialNetwork(currentElement.options.links, selectedNetwork)" ng-model="selectedNetwork">
+                                    <option value="" disabled>Select network from list</option>
+                                    <option ng-repeat="(key, link) in currentElement.options.links" ng-if="!link.active" ng-value="key">{{key | translate}}</option>
+                                </select>
+                            </div>
+                            <hr>
+                            <div class="form-row text-inputs" ng-repeat="(key, link) in currentElement.options.links" ng-if="link.active">
+                                <label for="{{key}}">{{key | translate}}</label>
+                                <div class="social-links">
+                                    <i class="material-icons">insert_link</i>
+                                    <input type="text" id="{{key}}" ng-value="link.link" />
+                                </div>
+                                <a href="#" onclick="return false" ng-click="link.active = false">Delete</a>
+                                <hr ng-if="!$last">
+                            </div>
+                            <!--<button class="md-btn md-btn-custom">{{'add_another_network' | translate}}</button>-->
+                        </div>
+
+                        <div class="block-properties" ng-if="key == 'url'">
+                            <div class="form-row text-inputs">
+                                <label for="builder_el_o_url" translate="builder_el_o_url"></label>
+                                <input id="builder_el_o_url" type="url" class="md-input" ng-model="currentElement.options[key]" />
+                            </div>
+                        </div>
+
+                        <div class="block-properties" ng-if="key == 'align'">
+                            <h3>Alignment</h3>
+                            <div class="form-row">
+                                <div class="md-btn-group md-btn-group-justify">
+                                    <button type="button" class="md-btn-custom md-btn-sm md-btn" ng-class="{'active': option == 'left'}" ng-click="currentElement.options[key] = 'left'"
+                                        translate="left"></button>
+                                    <button type="button" class="md-btn-custom md-btn-sm md-btn" ng-class="{'active': option == 'center'}" ng-click="currentElement.options[key] = 'center'"
+                                        translate="center"></button>
+                                    <button type="button" class="md-btn-custom md-btn-sm md-btn" ng-class="{'active': option == 'right'}" ng-click="currentElement.options[key] = 'right'"
+                                        translate="right"></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="['padding', 'margin'].indexOf(key) > -1" class="block-properties">
+                            <h3>{{key | translate}}</h3>
+                            <div class="form-row padding-inputs">
+                                <label for="builder_el_o_top" translate="builder_el_o_top"></label>
+                                <input id="builder_el_o_top" type="text" class="md-input" ng-model="currentElement.options[key][0]">
+
+                                <label for="builder_el_o_right" translate="builder_el_o_right"></label>
+                                <input id="builder_el_o_right" type="text" class="md-input" ng-model="currentElement.options[key][1]">
+                            </div>
+                            <div class="form-row padding-inputs">
+                                <label for="builder_el_o_bottom" translate="builder_el_o_bottom"></label>
+                                <input id="builder_el_o_bottom" type="text" class="md-input" ng-model="currentElement.options[key][2]">
+
+                                <label for="builder_el_o_left" translate="builder_el_o_left"></label>
+                                <input id="builder_el_o_left" type="text" class="md-input" ng-model="currentElement.options[key][3]">
+                            </div>
+                        </div>
+
+                        <div class="block-properties" ng-if="key == 'backgroundColor' || key == 'color' || key == 'buttonBackgroundColor'">
+                            <div class="form-row text-inputs">
+                                <label for="{{key}}" ng-if="key == 'backgroundColor'">{{ 'builder_el_o_background_color'  | translateCamelCase }}</label>
+                                <label for="{{key}}" ng-if="key == 'color'">{{ 'builder_el_o_text_color'  | translateCamelCase }}</label>
+                                <label for="{{key}}" ng-if="key == 'buttonBackgroundColor'">{{ 'builder_el_o_button_bg_color'  | translateCamelCase }}</label>
+                                <div class="color-inputs">
+                                    <span>HEX #</span>
+                                    <color-input class="color-input-container" model="currentElement.options[key]"></color-input>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="key == 'border'" class="block-properties">
+                            <h3>{{'border' | translate}}</h3>
+                            <div class="form-row range-inputs">
+                                <label for="border-size">{{'size' | translate}}</label>
+                                <input type="range" min="0" max="20" id="border-size" ng-model="currentElement.options[key]['size']">
+                                <span>{{currentElement.options[key]['size']}}px</span>
+                            </div>
+                            <div class="form-row color-inputs">
+                                <label for="border-style">{{'style' | translate}}</label>
+                                <select class="md-input" id="border-style" ng-model="currentElement.options[key]['style']">
+                                    <option ng-repeat="option in currentElement.options[key]['styleOptions']" ng-value="option">{{option | translate}}</option>
+                                </select>
+                            </div>
+                            <div class="form-row text-inputs">
+                                <label for="border-color">{{'color' | translate}}</label>
+                                <div class="color-inputs">
+                                    <span>HEX #</span>
+                                    <color-input class="color-input-container" model="currentElement.options[key]['color']"></color-input>
+                                </div>
+                            </div>
+                            <div class="form-row range-inputs" ng-if="currentElement.options[key]['radius'] !== 'undefined'">
+                                <label for="border-radius">{{'radius' | translate}}</label>
+                                <input type="range" min="0" max="50" id="border-radius" ng-model="currentElement.options[key]['radius']">
+                                <span class="md-color-gray">{{currentElement.options[key]['radius']}}%</span>
+                            </div>
+                        </div>
+
+                        <div class="block-properties" ng-if="key == 'fullWidth'">
+                            <div class="form-row checkbox-inputs">
+                                <input id="checkbox-1" type="checkbox" ng-model="currentElement.options[key]" />
+                                <label id="checkbox-1-custom" for="checkbox-1" aria-checked="false" role='checkbox' tabindex="0"></label>
+                                <label id='yes' role="label" for="checkbox-1">{{'fullWidth' | translate}}</label>
+                            </div>
+                        </div>
+
+                        <div ng-if="key.search('linkTo') > -1" class="block-properties">
+                            <h3>{{key | translate}}</h3>
+                            <div class="form-row text-inputs">
+                                <!--<label for="link-to">{{'choose_type' | translate}}</label>-->
+                                <select class="md-input" id="link-to" ng-model="currentElement.options[key]['type']">
+                                    <option ng-repeat="option in currentElement.options[key]['typeOptions']" ng-value="option">{{option | translate}}</option>
+                                </select>
+                            </div>
+                            <div ng-if="currentElement.options[key]['type'] !== 'none' && currentElement.options[key]['type'] === 'link'" class="form-row text-inputs link-to">
+                                <!--<label for="link" class="md-label">{{ 'your_link_here' | translate }}</label>-->
+                                <i class="material-icons">insert_link</i>
+                                <input id="link" required type="url" autofocus class="md-input" ng-model="currentElement.options[key]['link']" />
+                            </div>
+                            <div ng-if="currentElement.options[key]['type'] !== 'none' && currentElement.options[key]['type'] === 'email'" class="form-row text-inputs link-to">
+                                <!--<label for="link" class="md-label">{{ 'your_email_here' | translate }}</label>-->
+                                <i class="material-icons">email</i>
+                                <input id="link" required type="email" autofocus class="md-input" ng-model="currentElement.options[key]['link']" />
+                            </div>
+                        </div>
+
+                        <div ng-if="key == 'font'" class="block-properties">
+                            <h3>{{'font' | translate}}</h3>
+                            <div class="form-row range-inputs" ng-if="currentElement.options[key]['size']">
+                                <label for="font-size">{{'size' | translate}}</label>
+                                <input type="range" min="10" max="40" id="font-size" ng-model="currentElement.options[key]['size']">
+                                <span>{{currentElement.options[key]['size']}}px</span>
+                            </div>
+                            <div class="form-row text-inputs" ng-if="currentElement.options[key]['color']">
+                                <label for="font-color">{{'color' | translate}}</label>
+                                <div class="color-inputs">
+                                    <span>HEX #</span>
+                                    <color-input class="color-input-container" model="currentElement.options[key]['color']"></color-input>
+                                </div>
+                            </div>
+                            <div class="form-row color-inputs" ng-if="currentElement.options[key]['weight']">
+                                <label for="font-weight">{{'weight' | translate}}</label>
+                                <select class="md-input" id="font-weight" ng-model="currentElement.options[key]['weight']">
+                                    <option ng-repeat="option in currentElement.options[key]['weightOptions']" ng-value="option">{{option | translate}}</option>
+                                </select>
+                            </div>
+                            <div class="form-row text-inputs" ng-if="currentElement.options[key]['family']">
+                                <label for="font-family">{{'family' | translate}}</label>
+                                <select class="md-input" id="font-family" ng-model="currentElement.options[key]['family']">
+                                    <option ng-style="{fontFamily: option}" ng-repeat="option in currentElement.options[key]['familyOptions']" ng-value="option">{{option | translate}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div ng-if="currentElement.type == 'emailSettings' || !currentElement" class="email-builder-element-edit-field">
+
+                        <div class="block-properties">
+                            <div class="form-row text-inputs">
+                                <label for="emailName">{{'email_name' | translate}}</label>
+                                <input type="text" id="emailName" class="md-input" ng-model="Email.name">
+                            </div>
+                        </div>
+
+                        <div class="block-properties">
+                            <div class="form-row padding-inputs">
+                                <label for="emailSettingsPaddingTop" translate="builder_el_o_top"></label>
+                                <input id="emailSettingsPaddingTop" class="md-input" type="text" ng-model="currentElement.options.paddingTop">
+
+                                <label for="emailSettingsPaddingTop" translate="builder_el_o_right"></label>
+                                <input id="emailSettingsPaddingRight" class="md-input" type="text" ng-model="currentElement.options.paddingRight">
+                            </div>
+                            <div class="form-row padding-inputs">
+                                <label for="emailSettingsPaddingBottom" translate="builder_el_o_bottom"></label>
+                                <input id="emailSettingsPaddingBottom" type="text" class="md-input" ng-model="currentElement.options.paddingBottom">
+
+                                <label for="emailSettingsPaddingBottom" translate="builder_el_o_left"></label>
+                                <input id="emailSettingsPaddingLeft" type="text" class="md-input" ng-model="currentElement.options.paddingLeft">
+                            </div>
+                        </div>
+
+                        <div class="block-properties">
+                            <div class="form-row text-inputs">
+                                <label for="emailSettingsBackground">{{ 'background_color' | translate }}</label>
+                                <div class="color-inputs">
+                                    <span>HEX #</span>
+                                    <color-input class="color-input-container" model="currentElement.options.backgroundColor"></color-input>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div ng-if="currentElement == 'export'" class="email-builder-element-edit-field">
+
+                        <h2 ng-bind-html="'choose_export_type' | translate | rawHtml"></h2>
+                        <p ng-bind-html="'export_description' | translate | rawHtml : true"></p>
+
+                        <!--<div class="block-properties">
+                            <div class="form-row text-inputs">
+                                <label for="utmSources">{{ 'additional_params_for_each_link' | translate }}</label>
+                                <input id="utmSources" class="md-input" type="text" ng-model="Email.emailSettings.options.utmAdditionalParams" />
+                            </div>
+                        </div>-->
+
+                        <div class="md-btn-group">
+                            <button ng-click="downloadHtml()" class="md-btn md-btn-custom">{{'export_as_html' | translate}}</button>
+                            <button ng-click="exportEmailAsJson()" class="md-btn md-btn-custom">{{'export_as_json' | translate}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

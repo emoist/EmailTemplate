@@ -1,0 +1,46 @@
+ANGULAR EMAIL BUILDER
+
+13/07/2017 - v2.1.0
++ MJML API
++ Font styles on title block
++ Color picker
+
+07/06/2017 - v2.0.0
++ Configuration file
++ More layouts
++ MJML integrations
++ Mobile Preview
++ More useful features
+
+18/04/2017 - v1.3.0
++ Configurable file
++ HTML Block
+
+04/03/2017 - v1.2.2
++ Inline HTML editor
+
+07/02/2017 - v1.2.1
++ Confirmation dialog on delete element
++ UTM Source on all links
++ Social Block
++ Responsive HTML
+
+26/01/2017 - v1.2.0
++ Export as HTML "Copy or Download" - Tested
++ Mailchimp standart Header and Footer
++ Mailchimp head meta tags
++ Mailchimp Merge Tags in Tinymce
++ Enable/Disable all Mailchimp features
++ Google Analytics
++ Track Events
+
+14/01/2017 - v1.1.0
++ Added 'Preview email'
++ Added 'Import, Export'
++ Responsible for small screens
++ Added 'Alertify, tooltip' plugins
++ More performance
++ Minor updates
+
+05/01/2017 - v1.0.0
++ Initial Release

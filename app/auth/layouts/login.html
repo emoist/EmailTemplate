@@ -1,0 +1,33 @@
+<div class="col-md-4 col-md-offset-4">
+	<form action="#" onsubmit="return false" name="loginForm">
+		<div class="form-content">
+			<p class="text-error text-center alert alert-danger" ng-class="{'display-block': error != '', 'display-hide': error == ''}">{{error}}</p>
+			<div class="form-group has-feedback has-feedback-left">
+				<div class="form-control-feedback">
+					<i class="fa fa-user text-muted"></i>
+				</div>
+				<input type="email" name="email" class="form-control" ng-model="user.email" placeholder="Your email address" required>
+				<div ng-show="loginForm.$submitted || loginForm.email.$touched">
+					<p class="text-error required" ng-show="loginForm.email.$error.required">This field is required.</p>
+					<p class="validate-error error" ng-show="loginForm.email.$error.email">Insert your validate email.</p>
+				</div>
+			</div>
+			<div class="form-group has-feedback has-feedback-left">
+				<div class="form-control-feedback">
+					<i class="fa fa-lock text-muted"></i>
+				</div>
+				<input type="password" name="password" class="form-control" ng-model="user.password" placeholder="Your Password" required>
+				<div ng-show="loginForm.$submitted || loginForm.password.$touched">
+					<p class="text-error required" ng-show="loginForm.password.$error.required">This field is required.</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn bg-success" ng-click="login()">Login</button>
+			</div>
+			<div class="content-divider text-muted form-group">
+				<span>Don't have an account?</span>
+			</div>
+			<a ng-href="/#!/register">Create account</a>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,10 @@
+{
+  "verbose": true,
+  "watch": [
+    "./server.js",
+    "app/config.js"
+  ],
+  "events": {
+    "start": "gulp compile_less && gulp less:watch"
+  }
+}
