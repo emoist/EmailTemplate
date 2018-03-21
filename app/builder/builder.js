@@ -1152,7 +1152,17 @@ angular.module('email.builder', [
             $translateProvider.useSanitizeValueStrategy('escape');
         }])
 
-    .controller('emailCtrl', ['$scope', 'utils', 'storage', 'dragulaService', '$interpolate', '$translate', '$templateCache', 'variables' ,'$routeParams', 'store', '`',
+    /**
+     * Cache all email blocks template, to load very fast
+     * Be very careful if you want to change them
+     */
+    .run(['$templateCache', 'variables', function ($templateCache, variables) {
+        Object.keys(variables.blocks).forEach(function (key) {
+            return variables.disableBlocks.indexOf(key) === -1 && $templateCache.put(variables.blocks[key].type + "Template", variables.blocks[key].template);
+        });
+    }])
+
+    .controller('emailCtrl', ['$scope', 'utils', 'storage', 'dragulaService', '$interpolate', '$translate', '$templateCache', 'variables' ,'$routeParams', 'store', '$location',
         function ($scope, utils, storage, dragulaService, $interpolate, $translate, $templateCache, variables, $routeParams, store, $location) {
             $scope.email_id = $routeParams.id;
 
