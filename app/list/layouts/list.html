@@ -9,6 +9,6 @@
 	<a class="btn btn-info" ng-href="/#!/emails/create">Create</a>
 	<hr>
 	<div class="col-md-4 col-sm-6" ng-repeat="email in emails track by email.id">
-		<a ng-href="/#!/emails/{{ email.id }}">{{ email.id }}</a>
+		<a ng-href="/#!/emails/{{ email.id }}">{{ email.template | templateName }}</a>
 	</div>
 </div>

@@ -13,6 +13,14 @@ angular.module('email.list', [])
      */
 	.constant('variables', emailBuilderConfigurations)
 
+    /**
+     * This filter is used for extract template name from email template
+     */
+    .filter('templateName', function () {
+        return function (template) {
+        	return template != "" ? JSON.parse(decodeURI(template)).name : ""
+        };
+    })
 	/**
 	 * Module configurations
 	 */
@@ -37,18 +45,25 @@ angular.module('email.list', [])
 		function($scope, $location, $http, store, jwtHelper) {
 			$scope.emails = [];
 
-			$scope.jwt = store.get('jwt');
-			$scope.user = $scope.jwt && jwtHelper.decodeToken($scope.jwt);
+			/**
+             * Fetch email templates from server
+             */
+			$scope.init = function() {
+				$scope.jwt = store.get('jwt');
+				$scope.user = $scope.jwt && jwtHelper.decodeToken($scope.jwt);
 
-			$http.post('/emails', {user_id: $scope.user.id})
-			.then(function(response) {
-				$scope.emails = response.data
-			}, function(err) {
-				$scope.error = err.data;
-			});
+				$http.post('/emails', {user_id: $scope.user.id})
+				.then(function(response) {
+					$scope.emails = response.data
+				}, function(err) {
+					$scope.error = err.data;
+				});
+			}
 
 			$scope.logout = function() {
 				store.remove('jwt');
 				$location.path('/');
 			}
+
+			$scope.init()
 		}]);

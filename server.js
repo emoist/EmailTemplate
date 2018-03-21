@@ -26,6 +26,7 @@ function createToken(user) {
     return jwt.sign(_.omit(user, 'password'), config.secret, { expiresInMinutes: 60*5 });
 }
 
+// Extract object from request data
 const processPost = (request, response, callback) => {
     let queryData = "";
     if (typeof callback !== 'function') return null;
@@ -55,6 +56,7 @@ const processPost = (request, response, callback) => {
 }
 
 app.use(connectRoute(router => {
+    // Email html content
     router.post('/compile', (req, res, next) => {
         processPost(req, res, function (email) {
             const responsiveHtml = mjml.mjml2html(email)
@@ -65,6 +67,7 @@ app.use(connectRoute(router => {
         });
     })
 
+    // Login action
     router.post('/auth/login', (req, res, next) => {
         processPost(req, res, function (data) {
             connection.query('SELECT * FROM `users` WHERE `email` = "' + data.email + '"', function (error, results, fields) {
@@ -94,6 +97,7 @@ app.use(connectRoute(router => {
         })
     })
 
+    // Register action
     router.post('/auth/register', (req, res, next) => {
         processPost(req, res, function (data) {
             connection.query('SELECT * FROM `users` WHERE `email` = "' + data.email + '"', function (error, results, fields) {
@@ -120,6 +124,7 @@ app.use(connectRoute(router => {
         })
     })
 
+    // Get all emails by userid
     router.post('/emails', (req, res, next) => {
         processPost(req, res, function (data) {
             connection.query('SELECT * FROM `emails` WHERE `user_id` = ' + data.user_id, function (error, results, fields) {
@@ -131,6 +136,7 @@ app.use(connectRoute(router => {
         });
     })
 
+    // Create email template
     router.post('/emails/create', (req, res, next) => {
         processPost(req, res, function (data) {
             var sql = 'INSERT INTO `emails` (template, user_id) VALUES ("' + data.template + '", ' + data.user_id + ')'
@@ -150,6 +156,7 @@ app.use(connectRoute(router => {
         });
     })
 
+    // Get email template
     router.post('/emails/:id', (req, res, next) => {
         processPost(req, res, function (data) {
             connection.query('SELECT * FROM `emails` WHERE `id` = ' + req.params.id, function (error, results, fields) {
@@ -174,6 +181,7 @@ app.use(connectRoute(router => {
         })
     })
 
+    // Update email template
     router.post('/emails/update', (req, res, next) => {
         processPost(req, res, function (data) {
             connection.query('UPDATE emails SET template="' + data.template + '" WHERE id=' + data.id)

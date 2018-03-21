@@ -33,6 +33,10 @@ angular.module('email.auth', [])
             if (store.get('jwt')) $location.path('/emails')
             
             $scope.error = '';
+
+        	/**
+             * User login
+             */
 			$scope.login = function() {
 				if ($scope.loginForm.$valid == false) {
 					return;
@@ -51,6 +55,10 @@ angular.module('email.auth', [])
             if (store.get('jwt')) $location.path('/emails')
 
             $scope.error = '';
+
+        	/**
+             * User Signup
+             */
 			$scope.register = function() {
 				if ($scope.signupForm.$valid == false) {
 					return;
