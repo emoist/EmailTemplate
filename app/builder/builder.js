@@ -1082,7 +1082,7 @@ angular.module('email.builder', [
                         if (email_id == 'create') {
                             $http.post('/emails/create', {template: encodeURI(JSON.stringify(email)), user_id: user.id})
                             .then(response => {
-                                resolve()
+                                resolve(response.data)
                             }, err => {
                                 utils.notify(err.data).error();
                             })
@@ -1095,8 +1095,6 @@ angular.module('email.builder', [
                                 utils.notify(err.data).error();
                             })
                         }
-
-                        resolve();
                     } catch (e) {
                         utils.notify(e).error();
                         reject(e);
@@ -1323,13 +1321,16 @@ angular.module('email.builder', [
                     } else {
                         $scope.Email.html = res.html;
                         // $scope.Email = is what you need to save
-                        storage.put($scope.Email, $scope.email_id).then(function () {
+                        storage.put($scope.Email, $scope.email_id).then(function (response) {
                             utils.notify(utils.translate('email_saved')).success();
                             utils.trackEvent('Email', 'saved');
                             $scope.cloneEmail = JSON.parse(JSON.stringify($scope.Email));
                             $scope.$evalAsync(function () {
                                 $scope.currentElement = $scope.Email.emailSettings
                             })
+
+                            if ($scope.email_id == 'create')
+                                $location.path('/emails/' + response.insertId)
                         });
                     }
                 }, function (err) {

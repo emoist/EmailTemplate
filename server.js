@@ -125,14 +125,12 @@ app.use(connectRoute(router => {
     })
 
     // Get all emails by userid
-    router.post('/emails', (req, res, next) => {
-        processPost(req, res, function (data) {
-            connection.query('SELECT * FROM `emails` WHERE `user_id` = ' + data.user_id, function (error, results, fields) {
-                res.writeHead(200, {
-                    'Content-Type': 'application/json'
-                });
-                res.end(JSON.stringify(results));
+    router.get('/emails', (req, res, next) => {
+        connection.query('SELECT emails.*, users.lName, users.fName FROM `emails` LEFT JOIN users on emails.user_id = users.id ORDER BY user_id', function (error, results, fields) {
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
             });
+            res.end(JSON.stringify(results));
         });
     })
 
@@ -162,16 +160,10 @@ app.use(connectRoute(router => {
             connection.query('SELECT * FROM `emails` WHERE `id` = ' + req.params.id, function (error, results, fields) {
                 if (results.length > 0) {
                     var emailRow = results[0];
-                    if (emailRow.user_id == data.user_id) {
-                        res.writeHead(200, {
-                            'Content-Type': 'application/json'
-                        });
-                        res.end(JSON.stringify(emailRow.template));
-                    }
-                    else {
-                        res.writeHead(403);
-                        res.end("You can't access this email template");
-                    }
+                    res.writeHead(200, {
+                        'Content-Type': 'application/json'
+                    });
+                    res.end(JSON.stringify(emailRow.template));
                 }
                 else {
                     res.writeHead(401);
@@ -185,6 +177,8 @@ app.use(connectRoute(router => {
     router.post('/emails/update', (req, res, next) => {
         processPost(req, res, function (data) {
             connection.query('UPDATE emails SET template="' + data.template + '" WHERE id=' + data.id)
+            res.writeHead(200)
+            res.end("Email template saved")
         })
     })
 }))

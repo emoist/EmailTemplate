@@ -43,21 +43,40 @@ angular.module('email.list', [])
 	}])
 	.controller('emailsCtrl', ['$scope', '$location', '$http', 'store', 'jwtHelper',
 		function($scope, $location, $http, store, jwtHelper) {
-			$scope.emails = [];
+			$scope.user_emails = {};
 
 			/**
              * Fetch email templates from server
              */
 			$scope.init = function() {
-				$scope.jwt = store.get('jwt');
-				$scope.user = $scope.jwt && jwtHelper.decodeToken($scope.jwt);
-
-				$http.post('/emails', {user_id: $scope.user.id})
+				$http.get('/emails')
 				.then(function(response) {
-					$scope.emails = response.data
+					$scope.filterEmails(response.data)
 				}, function(err) {
 					$scope.error = err.data;
 				});
+			}
+
+			/**
+             * Separate emails by user
+             */
+			$scope.filterEmails = function(emails) {		
+		        var jwt = store.get('jwt');
+		        var user = jwt && jwtHelper.decodeToken(jwt);
+		        var current_username = user.fName + ' ' + user.lName;
+
+				var user_emails = {}, email, user_name;
+				for (var i = 0; i < emails.length; i++) {
+					email = emails[i]
+					if (!user_emails[email.user_id]) {
+						user_name = email.fName + ' ' + email.lName
+						if (user_name == current_username && user.id == email.user_id) user_name = 'My'
+						user_emails[email.user_id] = { name: user_name, emails: [] }
+					}
+					user_emails[email.user_id].emails.push(email)
+				}
+
+				$scope.user_emails = angular.copy(user_emails)
 			}
 
 			$scope.logout = function() {
