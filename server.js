@@ -14,10 +14,11 @@ const saltRounds = 10;
 const mysql      = require('mysql');
 
 var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : '',
-    database : 'emails'
+    host     : process.env.RDS_HOSTNAME || 'localhost',
+    user     : process.env.RDS_USERNAME || 'root',
+    password : process.env.RDS_PASSWORD || '',
+    port     : process.env.RDS_PORT     || 3306,
+    database : config.dbName
 });
 
 connection.connect();

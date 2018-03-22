@@ -1,3 +1,4 @@
 {
-  "secret": "email-builder"
+  "secret": "email-builder",
+  "dbName": "emails"
 }
