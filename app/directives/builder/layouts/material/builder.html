@@ -1,71 +1,53 @@
-<nav class="navbar navbar-inverse">
-    <div class="container">
-        <ul class="nav navbar-nav">
-            <li><a ng-href="/#!/emails">To emails</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-        </ul>
-    </div>
-</nav>
 <div id="email-builder">
-    <div class="email-builder-content">
-        <div class="md-card">
-            <div class="md-card-content elements-list">
-                <h3>Tools</h3>
-                <ul dragula='"element"'>
-                    <li ng-repeat="element in elements" data-type="{{element.type}}">
-                        <i class="material-icons" ng-bind-html="element.icon"></i>
-                        <!--<br>-->
-                        <span ng-bind="element.primary_head | translate"></span>
-                    </li>
-                </ul>
-                <button class="md-btn md-btn-custom btn-save" ng-class="{disabled: !hasChanges()}" ng-disabled="!hasChanges()" ng-click="saveEmailTemplate()">
-                    <i class="material-icons">save</i>
-                    Save changes
+    <div class="email-builder-preview-actions" ng-class="{preview: preview}">
+        <div class="md-btn-group">
+            <button class="md-btn md-btn-default" ng-class="{active: !mobilePreview}" ng-click="mobilePreview = false">Desktop</button>
+            <button class="md-btn md-btn-default" ng-class="{disabled: !Email.html.length, active: !!mobilePreview}" ng-disabled="!Email.html.length" ng-click="mobilePreview = true">Mobile</button>
+            <button class="md-btn md-btn-success" ng-if="hasChanges()" ng-click="saveEmailTemplate()">{{'email_save' | translate}}</button>
+        </div>
+        <i class="md-icon material-icons" ng-click="preview = false">close</i>
+    </div>
+    <div class="email-builder-header" ng-class="{preview: preview}">
+        <div class="email-builder-header-actions">
+            <h2>Logo</h2>
+            <div class="md-btn-group">
+                <button class="md-btn md-btn-flat md-btn-flat-danger md-btn-small" ng-class="{disabled: currentLanguage == 'en'}" ng-click="changeLanguage('en')">En</button>
+                <button class="md-btn md-btn-flat md-btn-flat-danger md-btn-small" ng-class="{disabled: currentLanguage == 'ru'}" ng-click="changeLanguage('ru')">Ru</button>
+            </div>
+        </div>
+
+        <div class="email-builder-header-actions">
+            <div class="md-btn-group">
+                <!--<i ng-if="!!currentElement" class="actions md-icon material-icons close md-color-red-600" title="{{'close_element_settings' | translate}}" ng-click="editElement(null)">close</i>-->
+                <i class="actions md-icon material-icons save md-color-green-600" title="{{'email_save' | translate}}" ng-class="{disabled: !hasChanges()}"
+                    ng-click="hasChanges() && saveEmailTemplate()">save</i>
+                <i class="actions md-icon material-icons" title="{{'email_settings' | translate}}" ng-class="{disabled: currentElement.type == 'emailSettings'}"
+                    ng-click="editElement('emailSettings')">settings</i>
+            </div>
+
+            <div class="md-btn-group">
+                <button class="md-btn md-btn-success" ng-click="previewEmail()">
+                    <i class="material-icons">remove_red_eye</i>
+                    {{'preview' | translate}}
                 </button>
-                <button class="md-btn md-btn-custom" ng-class="{disabled: currentElement.type == 'emailSettings'}" ng-disabled="currentElement.type == 'emailSettings'" ng-click="editElement('emailSettings')">
-                    <i class="material-icons">settings</i>
-                    General settings
-                </button>
-                <button class="md-btn md-btn-custom" ng-if="getVariable('importHtml')" ng-click="importEmail()">
+                <button class="md-btn md-btn-primary" ng-if="getVariable('importHtml')" ng-click="importEmail()">
                     <i class="material-icons">undo</i>
                     {{'import' | translate}}
                 </button>
-                <button class="md-btn md-btn-custom" ng-if="getVariable('exportHtml')" ng-class="{disabled: hasChanges()}" ng-disabled="hasChanges()" ng-click="openExportContainer()">
+                <button class="md-btn md-btn-primary" ng-class="{disabled: hasChanges()}" ng-if="getVariable('exportHtml')" ng-click="openExportContainer()">
                     <i class="material-icons">redo</i>
                     {{'export' | translate}}
                 </button>
-                <button class="md-btn md-btn-custom" ng-if="getVariable('deleteAllBlocks')" ng-click="deleteAllElements()">
-                    <i class="material-icons">delete</i> 
+                <button class="md-btn md-btn-warning" ng-if="getVariable('deleteAllBlocks')" ng-class="{disabled: !Email.elements.length}"
+                    ng-click="Email.elements.length && deleteAllElements()">
+                    <i class="material-icons">delete</i>
                     {{'delete_all_elements' | translate}}
                 </button>
             </div>
         </div>
-        <div position-relative>
-            <div class="preview-btns">
-                <div class="md-btn-group">
-                    <button class="md-btn-custom md-btn" ng-class="{active: !mobilePreview}" ng-click="mobilePreview = false">Desktop</button>
-                    <button class="md-btn-custom md-btn" ng-class="{disabled: !Email.html.length, active: !!mobilePreview}" ng-disabled="!Email.html.length" ng-click="mobilePreview = true">Mobile</button>
-                </div>
-            </div>
-            <div class="builder">
-                <mobile-preview email="Email" ng-if="mobilePreview"></mobile-preview>
-                <div class="email-container" ng-if="!mobilePreview" ng-style="Email.emailSettings.options" ng-class="{empty: !Email.elements.length}" data-empty-template="{{'drag_and_drop_elements_here' | translate}}"
-                    dragula='"element-html"'>
-                    <div class="builder-element" ng-class="{selected: currentElement.id === element.id}" ng-repeat="element in Email.elements track by element.id" id="{{ element.id }}">
-                        <ng-include src="getTemplate(element.type)" ng-click="editElement(element.id)"></ng-include>
-                        <div class="icons-actions">
-                            <i ng-if="Email.elements.length > 1" title="{{'move_element' | translate}}" class="actions move material-icons">drag_handle</i>
-                            <i class="actions clone material-icons" title="{{'clone_element' | translate}}" ng-click="cloneElement(element.id)">content_copy</i>
-                            <br>
-                            <i class="actions delete material-icons" title="{{'delete_element' | translate}}" ng-click="removeElement(element.id)">delete</i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="md-card" ng-class="{empty: preview}">
+    </div>
+    <div class="email-builder-content">
+        <div class="md-card detail-settings" ng-class="{empty: preview}">
             <div class="md-card-content">
                 <form action="#" onsubmit="return false">
                     <div ng-repeat="(key, option) in currentElement.options" ng-if="currentElement.type != 'emailSettings'" class="email-builder-element-edit-field">
@@ -303,6 +285,36 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+        
+        <div position-relative ng-class="{preview: preview, configured: !preview}">
+            <div class="builder">
+                <mobile-preview email="Email" ng-if="mobilePreview"></mobile-preview>
+                <div class="email-container" ng-if="!mobilePreview" ng-style="Email.emailSettings.options" ng-class="{empty: !Email.elements.length}" data-empty-template="{{'drag_and_drop_elements_here' | translate}}"
+                    dragula='"element-html"'>
+                    <div class="builder-element" ng-class="{selected: currentElement.id === element.id}" ng-repeat="element in Email.elements track by element.id"
+                        id="{{ element.id }}">
+                        <ng-include src="getTemplate(element.type)" ng-click="editElement(element.id)"></ng-include>
+                        <div class="icons-actions">
+                            <i ng-if="Email.elements.length > 1" title="{{'move_element' | translate}}" class="actions move material-icons">drag_handle</i>
+                            <i class="actions clone material-icons" title="{{'clone_element' | translate}}" ng-click="cloneElement(element.id)">content_copy</i>
+                            <br>
+                            <i class="actions delete material-icons" title="{{'delete_element' | translate}}" ng-click="removeElement(element.id)">delete</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="md-card elements-block" ng-class="{preview: preview}">
+            <div class="md-card-content elements-list">
+                <ul dragula='"element"'>
+                    <li ng-repeat="element in elements" data-type="{{element.type}}">
+                        <i class="material-icons" ng-bind-html="element.icon"></i>
+                        <!--<br>-->
+                        <span ng-bind="element.primary_head | translate"></span>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

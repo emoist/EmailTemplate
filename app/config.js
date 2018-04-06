@@ -17,11 +17,11 @@ const defaultFontFamily = [
 
 const emailBuilderConfigurations = {
   assetsPath: 'http://localhost:9000/assets',
-  layoutsPath: 'builder/layouts', // Path of builder
-  authPath: 'auth/layouts', // Path of auth
-  listPath: 'list/layouts', // Path of list
+  authPath: 'auth/layouts', // auth layout
+  containerPath: 'container/layouts', // email container
   defaultLayout: 'modern', // modern or material
-  defaultSkin: 'light', // light or dark
+  defaultSkin: 'dark', // light or dark
+  layoutsPath: "layouts",
   urlToUploadImage: '//uploads.im/api',
   tinymceBaseUrl: '/bower_components/tinymce',
   translateTemplateUrl: 'i18n/{part}/{lang}.json',
@@ -44,7 +44,8 @@ const emailBuilderConfigurations = {
       paddingRight: "10px",
       paddingBottom: "15px",
       paddingLeft: "10px",
-      backgroundColor: "#273142"
+      backgroundColor: "#fff",
+      border: "1px solid #999 dashed"
     }
   },
   disableBlocks: [],

@@ -46,7 +46,13 @@ gulp.task('common_scripts', function () {
 
             "app/bower_components/angular-dragula/dist/angular-dragula.js",
             "app/bower_components/a0-angular-storage/dist/angular-storage.js",
-            "app/bower_components/angular-jwt/dist/angular-jwt.js"
+            "app/bower_components/angular-jwt/dist/angular-jwt.js",
+            "app/bower_components/angular-animate/angular-animate.js",
+            "app/bower_components/angular-aria/angular-aria.js",
+            "app/bower_components/angular-material/angular-material.js",
+            "app/bower_components/angular-messages/angular-messages.js",
+            "app/bower_components/angular-mocks/angular-mocks.js"
+
         ])
         .pipe(concat('common.min.js'))
         .pipe(uglify())
@@ -54,7 +60,8 @@ gulp.task('common_scripts', function () {
 });
 
 gulp.task('compile_less', function () {
-    return gulp.src(`app/${config.layoutsPath}/${config.defaultLayout}/_${config.defaultSkin}-theme.less`)
+    return gulp.src(["app/bower_components/angular-material/angular-material.css", `app/${config.layoutsPath}/${config.defaultLayout}/_${config.defaultSkin}-theme.less`])
+        .pipe(concat('app.css'))
         .pipe(less())
         .pipe(cleanCSS({
             compatibility: 'ie8'
@@ -85,7 +92,7 @@ gulp.task('replace', function () {
 gulp.task('copy_files', function () {
     return gulp.src([
             'app/**',
-            '!app/{bower_components,bower_components/**,**/*.less,app.js,config.js,builder/*.js,index.html,md,md/**,auth/*.js,index.html,md,md/**,list/*.js,index.html,md,md/**}',
+            '!app/{bower_components,bower_components/**,**/*.less,app.js,config.js,directives/*.js,container/*.js,filters/*.js,auth/*.js,index.html,md,md/**}',
         ], {
             "base": "./app"
         })
@@ -96,9 +103,15 @@ gulp.task('app_js', function () {
     return gulp.src([
             'app/config.js',
             'app/app.js',
-            'app/builder/builder.js',
-            'app/list/list.js',
-            'app/auth/auth.js'
+            'app/directives/builder/builder.js',
+            'app/directives/list/list.js',
+            'app/directives/samples/element.js',
+            'app/directives/object-email/element.js',
+            'app/directives/sidebar/sidebar.js',
+            'app/directives/navbar/navbar.js',
+            'app/container/container.js',
+            'app/auth/auth.js',
+            'app/filters/name.js'
         ]).pipe(concat('app.min.js'))
         .pipe(es6transpiler({
             disallowUnknownReferences: false

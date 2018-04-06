@@ -1,0 +1,77 @@
+.sidebar {
+	background-color: @primary_color;
+	color: #fff !important;
+	width: 300px;
+	height: 100%;
+	top: 0;
+	padding-top: 70px;
+	position: absolute;
+	z-index: 80;
+	& > md-content {
+		padding: 0 20px;
+	}
+	md-content {
+		background-color: transparent;
+		color: #fff;
+		padding: 10px;
+	}
+	md-tabs {
+		md-pagination-wrapper {
+			width: 100%;
+			.md-tab {
+				width: 33.3%;
+				color: #fff;
+				font-weight: bold;
+				font-size: 16px;
+				&.md-active {
+					color: #ff6d00;
+				}
+			}
+			md-ink-bar {
+				background: #ff6d00;
+				color: #ff6d00;
+			}
+		}
+	}
+}
+.emails-list {
+	.btn-create {
+		background-color: #ff6d00;
+		color: #fff;
+		padding: 10px 0;
+		width: 100%;
+		border-radius: 0;
+		font-weight: bold;
+	}
+	.username {
+		color: #fff;
+		margin-top: 10px;
+	}
+	.email-templates-list {
+		margin-left: 15px;
+	}
+	.email-link {
+		color: #fff;
+		font-size: 16px;
+	}
+}
+.sample-templates {
+	.sample-template {
+		width: 50%;
+		display: inline-block;
+		margin-bottom: 20px;
+		padding: 10px;
+		img {
+			width: 100%;
+		}
+	}
+}
+.objectEmailForm {
+	label {
+		color: #fff;
+		font-weight: normal;
+	}
+	input {
+		border-radius: 0;
+	}
+}

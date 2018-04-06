@@ -4,10 +4,14 @@
 }
 #email-builder {
   display: flex;
-  height: 100vh;
+  height: 100%;
+  padding-left: 300px;
   flex-direction: column;
-  position: relative;
-  background-color: @primary_color;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  padding-top: 70px;
+  background-color: @white;
 
   .email-builder-content {
     flex: 1;
@@ -32,13 +36,16 @@
         font-size: 90%;
         text-transform: capitalize;
       }
-      &:first-child {
-        max-width: 280px;
+      &.elements-block {
+        z-index: 1;
+        max-width: 320px;
         padding: 1em 2em;
         box-sizing: border-box;
         overflow-x: hidden;
         overflow-y: auto;
-
+        height: 100%;
+        position: absolute;
+        right: 0;
         .elements-list {
           padding: 0;
           ul {
@@ -113,19 +120,25 @@
           }
         }
       }
-      &:last-child {
+      &.detail-settings {
         z-index: 1;
-        padding: 1rem;
+        padding: 1rem 2rem;
         max-width: 320px;
         overflow-y: auto;
         overflow-x: hidden;
+        height: 100%;
+        position: absolute;
+        right: 0;
         .transition-all();
 
         .md-card-content {
           padding: 0;
         }
 
-
+        .elements_back {
+          color: #fff;
+          text-decoration: none;
+        }
         .md-btn-group {
           display: table;
           margin: 0 auto;
@@ -193,7 +206,7 @@
                   border: 1px solid @button_border;
                   border-radius: 2px;
                   background-color: transparent;
-                  color: @label_color;
+                  color: @white;
                   font-weight: bold;
                   transition: all .2s ease-in-out;
                   min-width: 82%;
@@ -394,7 +407,7 @@
       position: relative;
       overflow: hidden;
       z-index: 0;
-      background-color: @second_color;
+      background-color: @white;
       display: flex;
       flex-direction: column;
 
@@ -407,7 +420,7 @@
         position: absolute;
         left: 0;
         width: 100%;
-        background-color: @second_color;
+        background-color: @white;
       }
       
       .builder {
@@ -429,12 +442,15 @@
         }
 
         .email-container {
-          background-color: @second_color;
+          background-color: @white;
           width: 600px;
           margin: 0 auto;
           position: relative;
           box-sizing: border-box;
-
+          .email-content {
+            margin-bottom: 20px;
+            border: 1px dashed #000;
+          }
           .gu-transit {
             border: 3px dashed @button_active_border;
             list-style: none;

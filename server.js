@@ -21,7 +21,33 @@ var connection = mysql.createConnection({
     database : config.dbName
 });
 
-connection.connect();
+connection.connect(function(error) {
+    if (error) {
+        console.error('error connecting:' + error.stack);
+        return;
+    }
+    
+    /*
+    var sql = 'CREATE TABLE IF NOT EXISTS `users` (' +
+                'id int(11) NOT NULL AUTO_INCREMENT,' +
+                'fName VARCHAR(255) NOT NULL, ' +
+                'lName VARCHAR(255) NOT NULL, ' +
+                'email VARCHAR(255) NOT NULL, ' +
+                'password VARCHAR(255) NOT NULL, ' +
+                'PRIMARY KEY (id));' +
+                'CREATE TABLE IF NOT EXISTS `emails` (' +
+                'id int(11) NOT NULL AUTO_INCREMENT,' +
+                '`template` text NOT NULL,' +
+                '`user_id` int(11) NOT NULL,' +
+                '`is_template` tinyint(4) NOT NULL DEFAULT 0,' +
+                '`thumb_url` varchar(255) DEFAULT NULL,' +
+                'PRIMARY KEY (id));';
+    connection.query(sql, function(error) {
+        console.log(error)
+    });
+    */
+    console.log('Connected as id:' + connection.threadId);
+});
 
 function createToken(user) {
     return jwt.sign(_.omit(user, 'password'), config.secret, { expiresInMinutes: 60*5 });
@@ -126,8 +152,18 @@ app.use(connectRoute(router => {
     })
 
     // Get all emails by userid
-    router.get('/emails', (req, res, next) => {
-        connection.query('SELECT emails.*, users.lName, users.fName FROM `emails` LEFT JOIN users on emails.user_id = users.id ORDER BY user_id', function (error, results, fields) {
+    router.get('/emails/non_templates', (req, res, next) => {
+        connection.query('SELECT emails.*, users.lName, users.fName FROM `emails` LEFT JOIN users on emails.user_id = users.id WHERE emails.is_template=0 ORDER BY user_id', function (error, results, fields) {
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+            res.end(JSON.stringify(results));
+        });
+    })
+
+    // Get all emails by userid
+    router.get('/emails/templates', (req, res, next) => {
+        connection.query('SELECT emails.* FROM `emails` WHERE emails.is_template=1', function (error, results, fields) {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
             });
@@ -164,7 +200,7 @@ app.use(connectRoute(router => {
                     res.writeHead(200, {
                         'Content-Type': 'application/json'
                     });
-                    res.end(JSON.stringify(emailRow.template));
+                    res.end(JSON.stringify(emailRow));
                 }
                 else {
                     res.writeHead(401);
@@ -185,7 +221,8 @@ app.use(connectRoute(router => {
 }))
 
 let port = process.env.PORT || process.argv[2] || 9000;
-let project = process.env.NODE_ENV == 'production' ? require('./app/config.js').buildFolder : './app';
+// let project = process.env.NODE_ENV == 'production' ? require('./app/config.js').buildFolder : './app';
+let project = '_dist';
 
 app.use(serveStatic(path.join(__dirname, project))).listen(port, function () {
     console.log('Server running on port %s.', port);

@@ -1,13 +1,20 @@
 'use strict';
 
+angular.module('email.auth', []);
+angular.module('email.main', []);
+angular.module('email.directives', []);
+angular.module('email.filters', []);
+
 // Declare app level module which depends on views, and components
 angular.module('email', [
 	'ngRoute',
+	'ngMaterial',
 	'angular-jwt',
 	'angular-storage',
-	'email.list',
-	'email.builder',
-	'email.auth'
+	'email.auth',
+	'email.main',
+	'email.directives',
+	'email.filters'
 ])
 .config(['$locationProvider', 'jwtInterceptorProvider', '$routeProvider', '$httpProvider', function($locationProvider, jwtInterceptorProvider, $routeProvider, $httpProvider) {
 	$routeProvider.otherwise({redirectTo: '/'});
