@@ -250,8 +250,8 @@
             </div>
             <div class="builder">
                 <mobile-preview email="Email" ng-if="mobilePreview"></mobile-preview>
-                <div class="email-container" ng-if="!mobilePreview" ng-style="Email.emailSettings.options" ng-class="{empty: !Email.elements.length}" data-empty-template="{{'drag_and_drop_elements_here' | translate}}">
-                    <div class="email-content" dragula='"element-html"'>
+                <div class="email-container" ng-if="!mobilePreview" ng-style="Email.emailSettings.options" dragula='"element-html"' ng-class="{empty: !Email.elements.length}" data-empty-template="{{'drag_and_drop_elements_here' | translate}}">
+                    <div class="email-content" >
                         <div class="builder-element" ng-class="{selected: currentElement.id === element.id}" ng-repeat="element in Email.elements track by element.id" id="{{ element.id }}">
                             <ng-include src="getTemplate(element.type)" ng-click="editElement(element.id)"></ng-include>
                             <div class="icons-actions">

@@ -25,6 +25,7 @@ angular.module('email', [
 		if (to.data && to.data.requiresLogin) {
 			if (!store.get('jwt') || jwtHelper.isTokenExpired(store.get('jwt'))) {
 				e.preventDefault();
+				store.remove('jwt');
 				$location.path('/login');
 			}
 		}
