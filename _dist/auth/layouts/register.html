@@ -1,0 +1,63 @@
+<div class="col-md-4 col-md-offset-4">
+	<form action="#" onsubmit="return false" name="signupForm" method="post">
+		<div class="form-content">
+			<p class="text-error text-center alert alert-danger" ng-class="{'display-block': error != '', 'display-hide': error == ''}">{{error}}</p>
+			<div class="form-group has-feedback has-feedback-left">
+				<input type="text" class="form-control required" name="fName" placeholder="Your First Name" ng-model="user.fName" required ng-trim="false">
+				<div class="form-control-feedback">
+					<i class="fa fa-user text-muted"></i>
+				</div>
+				<div ng-show="signupForm.$submitted || signupForm.fName.$touched">
+					<p class="text-error required" ng-show="signupForm.fName.$error.required">This field is required.</p>
+				</div>
+			</div>
+			<div class="form-group has-feedback has-feedback-left">
+				<input type="text" class="form-control required" name="lName" placeholder="Your Last Address" ng-model="user.lName" required ng-trim="false">
+				<div class="form-control-feedback">
+					<i class="fa fa-user text-muted"></i>
+				</div>
+				<div ng-show="signupForm.$submitted || signupForm.lName.$touched">
+					<p class="text-error required" ng-show="signupForm.lName.$error.required">This field is required.</p>
+				</div>
+			</div>
+			<div class="form-group has-feedback has-feedback-left">
+				<input type="email" class="form-control required" name="email" placeholder="Your Email Address" ng-model="user.email" required ng-trim="false">
+				<div class="form-control-feedback">
+					<i class="fa fa-envelope text-muted"></i>
+				</div>
+				<div ng-show="signupForm.$submitted || signupForm.email.$touched">
+					<p class="text-error required" ng-show="signupForm.email.$error.required">This field is required.</p>
+					<p class="validate-error error" ng-show="signupForm.email.$error.email">Insert your validate email.</p>
+				</div>
+			</div>
+			<div class="form-group has-feedback has-feedback-left">
+				<input type="password" name="password" class="form-control required" placeholder="Your Password" ng-model="user.password" required ng-trim="false">
+				<div class="form-control-feedback">
+					<i class="fa fa-lock text-muted"></i>
+				</div>
+				<div ng-show="signupForm.$submitted || signupForm.password.$touched">
+					<p class="text-error required" ng-show="signupForm.password.$error.required">This field is required.</p>
+				</div>
+			</div>
+			<div class="form-group has-feedback has-feedback-left">
+				<input type="password" name="repassword" class="form-control required" placeholder="Repassword" required ng-trim="false" ng-model="repassword">
+				<div class="form-control-feedback">
+					<i class="fa fa-check text-muted"></i>
+				</div>
+				<div ng-show="signupForm.$submitted || signupForm.repassword.$touched">
+					<p class="text-error required" ng-show="signupForm.repassword.$error.required">This field is required.</p>
+				</div>
+				<div ng-show="signupForm.$submitted || signupForm.repassword.$touched">
+					<p ng-show="password!=repassword" class="error-password required error">Check your repassword.</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<button class="btn bg-success" ng-click="register()">Register</button>
+			</div>
+			<div class="content-divider text-muted form-group">
+				<span>Already have account?</span>
+			</div>
+			<a href="/#!/login">Login</a>
+		</div>
+	</form>
+</div>
