@@ -1083,8 +1083,9 @@ angular.module('email.directives', [
                     try {
                         // Remove multine breaks
                         email.html = utils.removeLineBreaks(email.html);
+                        var data;
                         if (email_id == 'create') {
-                            var data = {
+                            data = {
                                 template: encodeURI(JSON.stringify(email)), 
                                 user_id: user.id,
                                 object_email: $rootScope.objectEmail.object_email,
@@ -1101,7 +1102,7 @@ angular.module('email.directives', [
                             })
                         }
                         else {
-                            var data = {
+                            data = {
                                 id: email_id,
                                 template: encodeURI(JSON.stringify(email)), 
                                 object_email: $rootScope.objectEmail.object_email,

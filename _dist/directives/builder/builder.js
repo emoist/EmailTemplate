@@ -1022,7 +1022,7 @@ angular.module('email.directives', [
     /**
      * Storage
      */
-    .factory('storage', ['utils', 'variables', '$http', 'store', 'jwtHelper', '$location', function (utils, variables, $http, store, jwtHelper, $location) {
+    .factory('storage', ['utils', 'variables', '$http', 'store', 'jwtHelper', '$location', '$rootScope', function (utils, variables, $http, store, jwtHelper, $location, $rootScope) {
         'use strict';
 
         var jwt = store.get('jwt');
@@ -1083,8 +1083,18 @@ angular.module('email.directives', [
                     try {
                         // Remove multine breaks
                         email.html = utils.removeLineBreaks(email.html);
+                        var data;
                         if (email_id == 'create') {
-                            $http.post('/emails/create', {template: encodeURI(JSON.stringify(email)), user_id: user.id})
+                            data = {
+                                template: encodeURI(JSON.stringify(email)), 
+                                user_id: user.id,
+                                object_email: $rootScope.objectEmail.object_email,
+                                cible: $rootScope.objectEmail.cible,
+                                ref_traffic: $rootScope.objectEmail.ref_traffic,
+                                desinscription: $rootScope.objectEmail.desinscription
+                            };
+                            
+                            $http.post('/emails/create', data)
                             .then(response => {
                                 resolve(response.data)
                             }, err => {
@@ -1092,7 +1102,15 @@ angular.module('email.directives', [
                             })
                         }
                         else {
-                            $http.post('/emails/update', {template: encodeURI(JSON.stringify(email)), id: email_id})
+                            data = {
+                                id: email_id,
+                                template: encodeURI(JSON.stringify(email)), 
+                                object_email: $rootScope.objectEmail.object_email,
+                                cible: $rootScope.objectEmail.cible,
+                                ref_traffic: $rootScope.objectEmail.ref_traffic,
+                                desinscription: $rootScope.objectEmail.desinscription
+                            };
+                            $http.post('/emails/update', data)
                             .then(response => {
                                 resolve()
                             }, err => {
@@ -1156,9 +1174,18 @@ angular.module('email.directives', [
             restrict: 'E',
             templateUrl: 'directives/builder/layouts/' + variables.defaultLayout + '/builder.html',
             controller: [
-                '$scope', 'utils', 'storage', 'dragulaService', '$interpolate', '$translate', '$templateCache', 'variables' ,'$routeParams', 'store', '$location', function emailBuilderCtrl($scope, utils, storage, dragulaService, $interpolate, $translate, $templateCache, variables, $routeParams, store, $location) {
+                '$scope', '$rootScope', 'utils', 'storage', 'dragulaService', '$interpolate', '$translate', '$templateCache', 'variables' ,'$routeParams', 'store', '$location', function emailBuilderCtrl($scope, $rootScope, utils, storage, dragulaService, $interpolate, $translate, $templateCache, variables, $routeParams, store, $location) {
                     $scope.email_id = $routeParams.id;
                     $scope.detailEnable = false;
+
+                    /**
+                     * Select template
+                     */
+                    $rootScope.$watch('selectedTemplate', function(value) {
+                        if (value && value > 0) {
+                            $scope.getEmailTemplate(value);
+                        }
+                    });
 
                     /**
                      * Back to elements
@@ -1166,18 +1193,42 @@ angular.module('email.directives', [
                     $scope.backToElements = function() {
                         $scope.detailEnable = false;
                     }
+
+                    /**
+                     * Get Email Template
+                     */
+                    $scope.getEmailTemplate = function(id) {
+                        var objectEmail = {
+                            object_email: "",
+                            cible: "",
+                            ref_traffic: "",
+                            desinscription: ""
+                        };
+
+                        storage.get(id).then(function (email) {
+                            $scope.Email = JSON.parse(JSON.stringify(email.template));
+                            $scope.cloneEmail = JSON.parse(JSON.stringify(email.template));
+                            if (email.is_template == 1) {
+                                $rootScope.objectEmail = objectEmail;
+                            }
+                            else {
+                                $rootScope.objectEmail = {
+                                    object_email: email.object_email,
+                                    cible: email.cible,
+                                    ref_traffic: email.ref_traffic,
+                                    desinscription: email.desinscription
+                                };
+                            }
+                            $scope.$evalAsync(function () {
+                                $scope.currentElement = $scope.Email.emailSettings;
+                            })
+                        });
+                    }
+
                     /**
                      * Sync with store
                      */
-                    storage.get($scope.email_id).then(function (email) {
-                        $scope.Email = JSON.parse(JSON.stringify(email.template));
-                        $scope.cloneEmail = JSON.parse(JSON.stringify(email.template));
-                        $scope.$evalAsync(function () {
-                            $scope.currentElement = $scope.Email.emailSettings;
-                        })
-                        if (email.is_template == 1)
-                            $scope.email_id = 'create';
-                    });
+                    $scope.getEmailTemplate($scope.email_id);
 
                     /**
                      * All elements to drag and drop

@@ -16,8 +16,10 @@ angular.module('email.directives')
 		return {
 			restrict: 'E',
 			templateUrl: 'directives/samples/template.html',
-			controller: ['$scope', '$http', function emailsNavbarCtrl($scope, $http) {
+			controller: ['$scope', '$http', '$rootScope', function emailsNavbarCtrl($scope, $http, $rootScope) {
 				$scope.sample_templates = [];
+				$rootScope.selectedTemplate = 0;
+
 				/**
 	             * Fetch email templates from server
 	             */
@@ -28,6 +30,13 @@ angular.module('email.directives')
 					}, function(err) {
 						$scope.error = err.data;
 					});
+				}
+
+				/**
+				 * Select Template
+				 */
+				$scope.selectTemplate = function(id) {
+					$rootScope.selectedTemplate = id;
 				}
 
 				$scope.init();
