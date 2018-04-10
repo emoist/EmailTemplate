@@ -18,7 +18,7 @@ var connection = mysql.createConnection({
     user     : process.env.RDS_USERNAME || 'root',
     password : process.env.RDS_PASSWORD || '',
     port     : process.env.RDS_PORT     || 3306,
-    database : config.dbName
+    database : process.env.RDS_DB_NAME  || config.dbName
 });
 
 connection.connect(function(error) {
