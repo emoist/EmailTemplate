@@ -16,8 +16,20 @@ angular.module('email.directives')
 		return {
 			restrict: 'E',
 			templateUrl: 'directives/sidebar/sidebar.html',
-			controller: ['$scope', function emailsSidebarCtrl($scope) {
-				
+			controller: ['$scope', '$rootScope', '$routeParams', function emailsSidebarCtrl($scope, $rootScope, $routeParams) {
+				$scope.selectedIndex = 0;
+				if ($routeParams.id == 'create') {
+					$scope.selectedIndex = 1;
+				}
+				else if ($routeParams.id > 0) {
+					$scope.selectedIndex = 2;
+				}
+
+				$rootScope.$watch('selectedTemplate', function(value) {
+					if (value && value > 0) {
+						$scope.selectedIndex = 2;
+					}
+				})
 			}]
 		}
 	})

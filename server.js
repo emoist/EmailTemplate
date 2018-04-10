@@ -174,7 +174,7 @@ app.use(connectRoute(router => {
     // Create email template
     router.post('/emails/create', (req, res, next) => {
         processPost(req, res, function (data) {
-            var sql = 'INSERT INTO `emails` (template, user_id) VALUES ("' + data.template + '", ' + data.user_id + ')'
+            var sql = 'INSERT INTO `emails` (template, user_id, object_email, cible, ref_traffic, desinscription) VALUES ("' + data.template + '", ' + data.user_id + ', "' + data.object_email + '", "' + data.cible + '", "' + data.ref_traffic + '", "' + data.desinscription + '")'
             connection.query(sql, function(err, results, fields) {
                 if (err) {
                     res.writeHead(403);
@@ -213,7 +213,7 @@ app.use(connectRoute(router => {
     // Update email template
     router.post('/emails/update', (req, res, next) => {
         processPost(req, res, function (data) {
-            connection.query('UPDATE emails SET template="' + data.template + '" WHERE id=' + data.id)
+            connection.query('UPDATE emails SET template="' + data.template + '", object_email="' + data.object_email +'", cible="' + data.cible +'", ref_traffic="' + data.ref_traffic +'", desinscription="' + data.desinscription +'" WHERE id=' + data.id)
             res.writeHead(200)
             res.end("Email template saved")
         })

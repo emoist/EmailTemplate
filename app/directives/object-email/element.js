@@ -16,8 +16,13 @@ angular.module('email.directives')
 		return {
 			restrict: 'E',
 			templateUrl: 'directives/object-email/template.html',
-			controller: ['$scope', function emailsNavbarCtrl($scope) {
-				
+			controller: ['$scope', '$rootScope', function emailsNavbarCtrl($scope, $rootScope) {
+				$rootScope.objectEmail = {
+                    object_email: "",
+                    cible: "",
+                    ref_traffic: "",
+                    desinscription: ""
+                };
 			}]
 		}
 	})
