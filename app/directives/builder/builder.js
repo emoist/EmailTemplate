@@ -1472,14 +1472,13 @@ angular.module('email.directives', [
                      */
                     dragulaService.options($scope, 'element', {
                         isContainer: function (el) {
-                            console.log(el.classList)
-                            return el.classList.contains('email-container');
+                            return el.classList.contains('email-content');
                         },
                         copy: true,
                         copySortSource: false,
                         removeOnSpill: true,
                         moves: function (el, source, handle, sibling) {
-                            return !$(source).hasClass('email-container');
+                            return !$(source).hasClass('email-content');
                         },
                         invalid: function (el, handle) {
                             return false; // don't prevent any drags from initiating by default
@@ -1509,7 +1508,7 @@ angular.module('email.directives', [
                         });
                         element.id = utils.uid();
                         var index = $(sibling).index();
-                        $('.email-container li').remove();
+                        $('.email-content li').remove();
                         index == -1 ? $scope.Email.elements.push(element) : $scope.Email.elements.splice(index - 1, 0, element);
                         utils.trackEvent('Elements', 'drop', element.type);
                         // $scope.currentElement = undefined;
