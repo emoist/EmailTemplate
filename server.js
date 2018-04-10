@@ -221,7 +221,7 @@ app.use(connectRoute(router => {
 }))
 
 let port = process.env.PORT || process.argv[2] || 9000;
-let project = require('./app/config.js').buildFolder;
+let project = process.env.NODE_ENV == 'production' ? require('./app/config.js').buildFolder : './app';
 
 app.use(serveStatic(path.join(__dirname, project))).listen(port, function () {
     console.log('Server running on port %s.', port);
