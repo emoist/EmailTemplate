@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var rename = require("gulp-rename");
 var less = require('gulp-less');
+var merge = require('merge-stream');
 var inject = require('gulp-inject');
 var uglify = require('gulp-uglify');
 var cleanCSS = require('gulp-clean-css');
@@ -61,22 +62,23 @@ gulp.task('common_scripts', function () {
 });
 
 gulp.task('compile_less', function () {
-    return gulp.src(`app/${config.layoutsPath}/${config.defaultLayout}/_${config.defaultSkin}-theme.less`)
-        .pipe(concat('app.css'))
+    var lessStream, cssStream;
+    // compile less
+    lessStream = gulp.src(`app/${config.layoutsPath}/${config.defaultLayout}/_${config.defaultSkin}-theme.less`)
         .pipe(less())
         .pipe(cleanCSS({
             compatibility: 'ie8'
         }))
-        .pipe(rename('app.min.css'))
-        .pipe(gulp.dest('./app/'))
-});
 
-gulp.task('compile_concat', function() {
-    return gulp.src([
+    // select additional css files
+    cssStream = gulp.src([
         "app/bower_components/angular-material/angular-material.min.css",
         "app/bower_components/dropzone/dist/min/dropzone.min.css",
         "app/bower_components/ng-dropzone/dist/ng-dropzone.min.css", 
-        "app/app.min.css"])
+    ])
+
+    // merge the two streams
+    return merge(lessStream, cssStream)
         .pipe(concat('app.min.css'))
         .pipe(gulp.dest('./app/'))
 });
@@ -152,5 +154,5 @@ gulp.task('add_app_min', function () {
 });
 
 gulp.task('default', function () {
-    return runSequence(['common_scripts', 'compile_less', 'compile_concat', 'replace'], ['copy_tinymce', 'copy_files'], 'app_js', 'add_app_min');
+    return runSequence(['common_scripts', 'compile_less', 'replace'], ['copy_tinymce', 'copy_files'], 'app_js', 'add_app_min');
 })

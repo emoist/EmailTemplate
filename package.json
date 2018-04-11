@@ -32,6 +32,7 @@
     "connect-route": "^0.1.5",
     "jsonwebtoken": "^1.1.2",
     "lodash": "^2.4.1",
+    "merge-stream": "^1.0.1",
     "mjml": "^3.3.3",
     "mysql": "github:mysqljs/mysql",
     "ngdropzone": "^2.0.2",
