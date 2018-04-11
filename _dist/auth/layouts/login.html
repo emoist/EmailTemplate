@@ -1,33 +1,35 @@
-<div class="col-md-4 col-md-offset-4">
-	<form action="#" onsubmit="return false" name="loginForm">
-		<div class="form-content">
-			<p class="text-error text-center alert alert-danger" ng-class="{'display-block': error != '', 'display-hide': error == ''}">{{error}}</p>
-			<div class="form-group has-feedback has-feedback-left">
-				<div class="form-control-feedback">
-					<i class="fa fa-user text-muted"></i>
-				</div>
-				<input type="email" name="email" class="form-control" ng-model="user.email" placeholder="Your email address" required>
-				<div ng-show="loginForm.$submitted || loginForm.email.$touched">
-					<p class="text-error required" ng-show="loginForm.email.$error.required">This field is required.</p>
-					<p class="validate-error error" ng-show="loginForm.email.$error.email">Insert your validate email.</p>
-				</div>
-			</div>
-			<div class="form-group has-feedback has-feedback-left">
-				<div class="form-control-feedback">
-					<i class="fa fa-lock text-muted"></i>
-				</div>
-				<input type="password" name="password" class="form-control" ng-model="user.password" placeholder="Your Password" required>
-				<div ng-show="loginForm.$submitted || loginForm.password.$touched">
-					<p class="text-error required" ng-show="loginForm.password.$error.required">This field is required.</p>
-				</div>
-			</div>
-			<div class="form-group">
-				<button type="submit" class="btn bg-success" ng-click="login()">Login</button>
-			</div>
-			<div class="content-divider text-muted form-group">
-				<span>Don't have an account?</span>
-			</div>
-			<a ng-href="/#!/register">Create account</a>
+<md-content layout="row" layout-align="space-around" layout-padding="layout-padding" ng-cloak="ng-cloak" class="login-form">
+  <md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2><span>Login Form</span></h2>
+      </div>
+    </md-toolbar>
+    <md-card-content>
+      <form name="Form">
+        <p class="text-error text-center alert alert-danger" ng-class="{'display-block': error != '', 'display-hide': error == ''}">{{error}}</p>
+        <md-input-container class="md-block">
+          <label>Email</label>
+          <input type="email" name="email" ng-model="user.email" required=""/>
+          <div ng-messages="Form.email.$error" role="alert" multiple="">
+            <div ng-message="required" class="my-message">Please enter your email.</div>
+            <div ng-message="email" class="my-message">Insert your validate email.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Password</label>
+          <input type="password" name="password" ng-model="user.password" required="" md-maxlength="16"/>
+          <div ng-messages="Form.password.$error" role="alert" multiple="">
+            <div ng-message="required" class="my-message">Please enter your password.</div>
+            <div ng-message="md-maxlength" class="my-message">Too long.</div>
+          </div>
+        </md-input-container>
+        <md-button ng-disabled="!Form.$valid" ng-click="login()" class="md-raised md-primary">&nbsp Login &nbsp</md-button>
+        <div class="content-divider text-muted form-group">
+			<span>Don't have an account?</span>
 		</div>
-	</form>
-</div>
+		<a ng-href="/#!/register">Register</a>
+      </form>
+    </md-card-content>
+  </md-card>
+</md-content>

@@ -9,7 +9,11 @@ angular.module('email.filters', []);
 angular.module('email', [
 	'ngRoute',
 	'ngMaterial',
+	'ngAnimate',
+	'ngAria',
+	'ngMessages',
 	'angular-jwt',
+	'thatisuday.dropzone',
 	'angular-storage',
 	'email.auth',
 	'email.main',

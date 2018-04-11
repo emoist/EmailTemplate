@@ -1,21 +1,59 @@
 <md-toolbar>
 	<div class="md-toolbar-tools">
 		<h2>Media Upload</h2>
+		<span flex="" class="flex"></span>
 		<md-button class="md-icon-button" ng-click="cancel()">
 			<md-icon md-font-set="material-icons" aria-label="Close Dialog"> clear </md-icon>
 		</md-button>
 	</div>
 </md-toolbar>
 <md-dialog-content>
-	<md-tabs md-dynamic-height md-border-bottom>
-		<md-tab label="Upload Files">
-			<md-content class="md-padding">
-				<h1>Hello 1</h1>
+	<md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
+		<md-tab label="Upload Files" ng-if="enableManage">
+			<md-content>
+				<ng-dropzone class="dropzone" options="dzOptions" callbacks="dzCallbacks" methods="dzMethods"></ng-dropzone>
 			</md-content>
 		</md-tab>
 		<md-tab label="Media Library">
-			<md-content class="md-padding">
-				<h1>Hello 2</h1>
+			<md-content>
+				<div class="galleries-wrapper">
+					<div class="empty" ng-if="!hasItems()">
+						<div class="text-center">
+							No items found.
+						</div>
+					</div>
+					<div class="galleries-content" ng-if="hasItems()">
+						<ul class="list-unstyled list-inline galleries">
+							<li class="gallery" ng-repeat="gallery in galleries track by gallery.id" ng-class="{'active': currentGallery.id == gallery.id}" ng-click="setCurrentGallery(gallery)">
+								<div class="attachment-preview">
+									<div class="thumbnail">
+										<div class="centered">
+											<img ng-src="{{ galleryPath(gallery) }}" class="img-responsive">
+										</div>
+									</div>
+								</div>
+								<button type="button"><i class="material-icons">check</i></button>
+							</li>
+						</ul>
+						<div class="details-panel">
+							<div class="selected-gallery">
+								<div class="gallery">
+									<div class="attachment-preview">
+										<div class="thumbnail">
+											<div class="centered">
+												<img ng-src="{{ galleryPath(currentGallery) }}" class="img-responsive">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="button-group">
+								<md-button ng-click="removeCurrentGallery()" ng-disabled="isDisabledCurrentGallery()" class="md-bg-red" ng-class="{'disabled': isDisabledCurrentGallery()}" ng-show="enableManage">Remove</md-button>
+								<md-button ng-click="selectCurrentGallery()" ng-disabled="isDisabledCurrentGallery()" class="md-bg-teal" ng-class="{'disabled': isDisabledCurrentGallery()}">Select</md-button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</md-content>
 		</md-tab>
 	</md-tabs>

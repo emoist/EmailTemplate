@@ -1,63 +1,68 @@
-<div class="col-md-4 col-md-offset-4">
-	<form action="#" onsubmit="return false" name="signupForm" method="post">
-		<div class="form-content">
-			<p class="text-error text-center alert alert-danger" ng-class="{'display-block': error != '', 'display-hide': error == ''}">{{error}}</p>
-			<div class="form-group has-feedback has-feedback-left">
-				<input type="text" class="form-control required" name="fName" placeholder="Your First Name" ng-model="user.fName" required ng-trim="false">
-				<div class="form-control-feedback">
-					<i class="fa fa-user text-muted"></i>
-				</div>
-				<div ng-show="signupForm.$submitted || signupForm.fName.$touched">
-					<p class="text-error required" ng-show="signupForm.fName.$error.required">This field is required.</p>
-				</div>
+<md-content layout="row" layout-align="space-around" layout-padding="layout-padding" ng-cloak="ng-cloak" class="login-form">
+	<md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2><span>Register Form</span></h2>
 			</div>
-			<div class="form-group has-feedback has-feedback-left">
-				<input type="text" class="form-control required" name="lName" placeholder="Your Last Address" ng-model="user.lName" required ng-trim="false">
-				<div class="form-control-feedback">
-					<i class="fa fa-user text-muted"></i>
+		</md-toolbar>
+		<md-card-content>
+			<form name="Form">
+				<p class="text-error text-center alert alert-danger" ng-class="{'display-block': error != '', 'display-hide': error == ''}">{{error}}</p>
+				<md-input-container class="md-block">
+					<label>Email</label>
+					<input type="email" name="email" ng-model="user.email" required=""/>
+					<div ng-messages="Form.email.$error" role="alert" multiple="">
+						<div ng-message="required" class="my-message">Please enter your email.</div>
+						<div ng-message="email" class="my-message">Insert your validate email.</div>
+					</div>
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>First Name</label>
+					<input type="text" name="fName" ng-model="user.fName" required=""/>
+					<div ng-messages="Form.fName.$error" role="alert" multiple="">
+						<div ng-message="required" class="my-message">Please enter your first name.</div>
+					</div>
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>Last Name</label>
+					<input type="text" name="lName" ng-model="user.lName" required=""/>
+					<div ng-messages="Form.lName.$error" role="alert" multiple="">
+						<div ng-message="required" class="my-message">Please enter your last name.</div>
+					</div>
+				</md-input-container>
+
+				<md-input-container class="md-block">
+					<label>Password</label>
+					<input type="password" name="password" ng-model="user.password" required="" minlength="8"/>
+					<div ng-messages="Form.password.$error" role="alert" multiple="">
+						<div ng-message="required" class="my-message">Please enter your password.</div>
+						<div ng-message="minlength" class="my-message">The password must be more than 8 characters long.</div>
+					</div>
+				</md-input-container>
+
+				<md-input-container class="md-icon-float md-block">
+					<label>Verify Password: </label>
+					<input required type="password" name="repassword" ng-model="repassword" compare-to="user.password"/>
+					<div ng-messages="Form.repassword.$error">
+						<div ng-message="required">Please enter your confirmation password.</div>
+						<div ng-message="compareTo">Must match the previous entry</div>
+					</div>
+				</md-input-container>
+				<md-input-container class="md-icon-float md-block">
+					<md-radio-group layout="row" ng-model="user.role" name="role" required>
+						<md-radio-button value="designer" class="md-primary">Designer</md-radio-button>
+						<md-radio-button value="marketing">Marketing</md-radio-button>
+					</md-radio-group>
+					<div ng-messages="Form.role.$error">
+						<div ng-message="required">Please select your role.</div>
+					</div>
+				</md-input-container>
+				<md-button ng-disabled="!Form.$valid" ng-click="register()" class="md-raised md-primary">&nbsp Register &nbsp</md-button>
+				<div class="content-divider text-muted form-group">
+					<span>Already have account?</span>
 				</div>
-				<div ng-show="signupForm.$submitted || signupForm.lName.$touched">
-					<p class="text-error required" ng-show="signupForm.lName.$error.required">This field is required.</p>
-				</div>
-			</div>
-			<div class="form-group has-feedback has-feedback-left">
-				<input type="email" class="form-control required" name="email" placeholder="Your Email Address" ng-model="user.email" required ng-trim="false">
-				<div class="form-control-feedback">
-					<i class="fa fa-envelope text-muted"></i>
-				</div>
-				<div ng-show="signupForm.$submitted || signupForm.email.$touched">
-					<p class="text-error required" ng-show="signupForm.email.$error.required">This field is required.</p>
-					<p class="validate-error error" ng-show="signupForm.email.$error.email">Insert your validate email.</p>
-				</div>
-			</div>
-			<div class="form-group has-feedback has-feedback-left">
-				<input type="password" name="password" class="form-control required" placeholder="Your Password" ng-model="user.password" required ng-trim="false">
-				<div class="form-control-feedback">
-					<i class="fa fa-lock text-muted"></i>
-				</div>
-				<div ng-show="signupForm.$submitted || signupForm.password.$touched">
-					<p class="text-error required" ng-show="signupForm.password.$error.required">This field is required.</p>
-				</div>
-			</div>
-			<div class="form-group has-feedback has-feedback-left">
-				<input type="password" name="repassword" class="form-control required" placeholder="Repassword" required ng-trim="false" ng-model="repassword">
-				<div class="form-control-feedback">
-					<i class="fa fa-check text-muted"></i>
-				</div>
-				<div ng-show="signupForm.$submitted || signupForm.repassword.$touched">
-					<p class="text-error required" ng-show="signupForm.repassword.$error.required">This field is required.</p>
-				</div>
-				<div ng-show="signupForm.$submitted || signupForm.repassword.$touched">
-					<p ng-show="password!=repassword" class="error-password required error">Check your repassword.</p>
-				</div>
-			</div>
-			<div class="form-group">
-				<button class="btn bg-success" ng-click="register()">Register</button>
-			</div>
-			<div class="content-divider text-muted form-group">
-				<span>Already have account?</span>
-			</div>
-			<a href="/#!/login">Login</a>
-		</div>
-	</form>
-</div>
+				<a ng-href="/#!/login">Login</a>
+			</form>
+		</md-card-content>
+	</md-card>
+</md-content>

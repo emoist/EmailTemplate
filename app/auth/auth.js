@@ -12,6 +12,23 @@ angular.module('email.auth', [])
      * You must return a status_code = 200 and put all information in 'data' like 'data.img_url', otherwise return status_txt with your error
      */
 	.constant('variables', emailBuilderConfigurations)
+	.directive('compareTo', function(){
+		return {
+			require: "ngModel",
+			scope: {
+				otherModelValue: "=compareTo"
+			},
+			link: function(scope, element, attributes, ngModel){
+				ngModel.$validators.compareTo = function(modelValue) {
+					return modelValue == scope.otherModelValue;
+				};
+
+				scope.$watch("otherModelValue", function() {
+					ngModel.$validate();
+				});
+			}
+		};
+	})
 
 	/**
      * Module configurations
@@ -38,7 +55,7 @@ angular.module('email.auth', [])
              * User login
              */
 			$scope.login = function() {
-				if ($scope.loginForm.$valid == false) {
+				if ($scope.Form.$valid == false) {
 					return;
 				}
 				$http.post('/auth/login', $scope.user)
@@ -60,7 +77,7 @@ angular.module('email.auth', [])
              * User Signup
              */
 			$scope.register = function() {
-				if ($scope.signupForm.$valid == false) {
+				if ($scope.Form.$valid == false) {
 					return;
 				}
 				$http.post('/auth/register', $scope.user)

@@ -163,7 +163,6 @@ angular.module('email.directives', [
 
                     let uploadLink = $(elem).find('.upload-image a');
                     let uploadingIcon = $(elem).find('.uploading')
-
                     uploadLink.on('click', (e) => {
                         e.preventDefault();
 
@@ -172,8 +171,10 @@ angular.module('email.directives', [
                             templateUrl: 'directives/builder/media-upload/template.html',
                             targetEvent: e,
                             parent: angular.element(document.body),
-                            clickOutsideToClose: true
-                        });
+                            clickOutsideToClose: true,
+                        }).then(function(response) {
+                            scope.model = variables.uploadsPath + response.name
+                        })
                     })
                 }
             };
@@ -882,7 +883,7 @@ angular.module('email.directives', [
                             }
                         })
                     }
-                    return $.post(variables.mjmlCompileAdress, JSON.stringify(compileMjmlObject)).then(succesFn);
+                    return $.post(variables.mjmlCompileAdress, {data: JSON.stringify(compileMjmlObject)}).then(succesFn);
                 });
             },
             /**
@@ -1013,7 +1014,7 @@ angular.module('email.directives', [
                             resolve(email);
                         }
                         else {
-                            $http.post('/emails/' + email_id, {user_id: user.id})
+                            $http.get('/emails/' + email_id)
                             .then(response => {
                                 var email = response.data;
                                 email.template = JSON.parse(decodeURI(email.template)) || defaultEmail;
@@ -1165,7 +1166,7 @@ angular.module('email.directives', [
                         storage.get(id).then(function (email) {
                             $scope.Email = JSON.parse(JSON.stringify(email.template));
                             $scope.cloneEmail = JSON.parse(JSON.stringify(email.template));
-                            if (email.is_template == 1) {
+                            if (email.is_template == 1 || id == 'create') {
                                 $rootScope.objectEmail = objectEmail;
                             }
                             else {

@@ -21,6 +21,7 @@ const emailBuilderConfigurations = {
   containerPath: 'container/layouts', // email container
   defaultLayout: 'modern', // modern or material
   defaultSkin: 'dark', // light or dark
+  uploadsPath: 'uploads/',
   layoutsPath: "layouts",
   urlToUploadImage: '//uploads.im/api',
   tinymceBaseUrl: '/bower_components/tinymce',
