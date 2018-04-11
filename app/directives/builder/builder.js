@@ -133,7 +133,8 @@ angular.module('email.directives', [
         'utils',
         'variables',
         '$timeout',
-        function (utils, variables, $timeout) {
+        '$mdDialog',
+        function (utils, variables, $timeout, $mdDialog) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -163,60 +164,16 @@ angular.module('email.directives', [
                     let uploadLink = $(elem).find('.upload-image a');
                     let uploadingIcon = $(elem).find('.uploading')
 
-                    let uploadInput = $('<input/>', {
-                        type: 'file',
-                        name: 'file'
-                    }).on('change', function (event) {
-
-                        if (!variables.urlToUploadImage)
-                            throw Error('You don\'t set the \'urlToUploadImage\' in variables.');
-
-                        var inputFile = $(event.target)
-                        inputFile.prop('disabled', true);
-                        uploadLink.text(utils.translate('uploading'));
-                        uploadingIcon.addClass('active');
-                        var formData = new FormData();
-                        formData.append('upload', event.target.files[0]);
-                        return $.ajax({
-                            url: variables.urlToUploadImage,
-                            data: formData,
-                            processData: false,
-                            contentType: false,
-                            type: 'POST',
-                            success: function (res) {
-                                if (res.status_code == 200) {
-                                    event.target.value = null;
-                                    scope.$evalAsync(function () {
-                                        scope.model = res.data.img_url;
-                                        scope.thumb = res.data.thumb_url;
-                                        if (scope.element.hasOwnProperty('width')) {
-                                            scope.element.width = res.data.img_width;
-                                        }
-                                    });
-                                    utils.notify(utils.translate('your_image_has_been_uploaded')).log();
-                                } else {
-                                    utils.notify(res.status_txt).error();
-                                }
-                            },
-                            error: function (err) {
-                                utils.notify(err.statusText).error();
-                            },
-                            complete: function () {
-                                inputFile.prop('disabled', false);
-                                uploadLink.text(utils.translate('browse'));
-                                uploadingIcon.removeClass('active');
-                            }
-                        });
-                    })
-
                     uploadLink.on('click', (e) => {
                         e.preventDefault();
 
-                        if (/uploads.im/.test(variables.urlToUploadImage) && location.protocol == 'https:') {
-                            return utils.notify('Sorry, but uploads.im don\'t support https!').error();
-                        } else {
-                            return uploadInput.click();
-                        }
+                        $mdDialog.show({
+                            controller: 'mediaUpload',
+                            templateUrl: 'directives/builder/media-upload/template.html',
+                            targetEvent: e,
+                            parent: angular.element(document.body),
+                            clickOutsideToClose: true
+                        });
                     })
                 }
             };

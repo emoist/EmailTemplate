@@ -1,0 +1,11 @@
+<div class="emails-list">
+	<a class="btn btn-create" ng-href="/#!/emails/create">New Email</a>
+	<div ng-repeat="user in user_emails">
+		<h4 class="username">{{ user.name }} templates</h4>
+		<ul class="email-templates-list list-unstyled list-inline">
+			<li ng-repeat="email in user.emails track by email.id">
+				<a ng-href="/#!/emails/{{ email.id }}" class="email-link">{{ email.template | templateName }}</a>
+			</li>
+		</ul>
+	</div>
+</div>

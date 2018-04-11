@@ -16,7 +16,7 @@ angular.module('email.directives')
 	.directive('emailsList', function() {
 		return {
 			restrict: 'E',
-			templateUrl: 'directives/list/list.html',
+			templateUrl: 'directives/sidebar/list/list.html',
 			controller: ['$scope', '$http', 'store', 'jwtHelper', function emailsListCtrl($scope, $http, store, jwtHelper) {
 				$scope.user_emails = {};
 				/**

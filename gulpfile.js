@@ -51,8 +51,9 @@ gulp.task('common_scripts', function () {
             "app/bower_components/angular-aria/angular-aria.js",
             "app/bower_components/angular-material/angular-material.js",
             "app/bower_components/angular-messages/angular-messages.js",
-            "app/bower_components/angular-mocks/angular-mocks.js"
-
+            "app/bower_components/angular-mocks/angular-mocks.js",
+            "app/bower_components/dropzone/dist/min/dropzone.min.js",
+            "app/bower_components/ng-dropzone/dist/ng-dropzone.min.js"
         ])
         .pipe(concat('common.min.js'))
         .pipe(uglify())
@@ -60,13 +61,23 @@ gulp.task('common_scripts', function () {
 });
 
 gulp.task('compile_less', function () {
-    return gulp.src(["app/bower_components/angular-material/angular-material.css", `app/${config.layoutsPath}/${config.defaultLayout}/_${config.defaultSkin}-theme.less`])
+    return gulp.src(`app/${config.layoutsPath}/${config.defaultLayout}/_${config.defaultSkin}-theme.less`)
         .pipe(concat('app.css'))
         .pipe(less())
         .pipe(cleanCSS({
             compatibility: 'ie8'
         }))
         .pipe(rename('app.min.css'))
+        .pipe(gulp.dest('./app/'))
+});
+
+gulp.task('compile_concat', function() {
+    return gulp.src([
+        "app/bower_components/angular-material/angular-material.min.css",
+        "app/bower_components/dropzone/dist/min/dropzone.min.css",
+        "app/bower_components/ng-dropzone/dist/ng-dropzone.min.css", 
+        "app/app.min.css"])
+        .pipe(concat('app.min.css'))
         .pipe(gulp.dest('./app/'))
 });
 
@@ -103,10 +114,11 @@ gulp.task('app_js', function () {
     return gulp.src([
             'app/config.js',
             'app/app.js',
+            'app/directives/builder/media-upload/element.js',
             'app/directives/builder/builder.js',
-            'app/directives/list/list.js',
-            'app/directives/samples/element.js',
-            'app/directives/object-email/element.js',
+            'app/directives/sidebar/list/list.js',
+            'app/directives/sidebar/samples/element.js',
+            'app/directives/sidebar/object-email/element.js',
             'app/directives/sidebar/sidebar.js',
             'app/directives/navbar/navbar.js',
             'app/container/container.js',
@@ -140,5 +152,5 @@ gulp.task('add_app_min', function () {
 });
 
 gulp.task('default', function () {
-    return runSequence(['common_scripts', 'compile_less', 'replace'], ['copy_tinymce', 'copy_files'], 'app_js', 'add_app_min');
+    return runSequence(['common_scripts', 'compile_less', 'compile_concat', 'replace'], ['copy_tinymce', 'copy_files'], 'app_js', 'add_app_min');
 })

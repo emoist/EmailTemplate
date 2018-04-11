@@ -15,7 +15,7 @@ angular.module('email.directives')
 	.directive('emailsSample', function() {
 		return {
 			restrict: 'E',
-			templateUrl: 'directives/samples/template.html',
+			templateUrl: 'directives/sidebar/samples/template.html',
 			controller: ['$scope', '$http', '$rootScope', function emailsNavbarCtrl($scope, $http, $rootScope) {
 				$scope.sample_templates = [];
 				$rootScope.selectedTemplate = 0;

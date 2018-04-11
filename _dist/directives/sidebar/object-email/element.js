@@ -15,7 +15,7 @@ angular.module('email.directives')
 	.directive('objectEmail', function() {
 		return {
 			restrict: 'E',
-			templateUrl: 'directives/object-email/template.html',
+			templateUrl: 'directives/sidebar/object-email/template.html',
 			controller: ['$scope', '$rootScope', function emailsNavbarCtrl($scope, $rootScope) {
 				$rootScope.objectEmail = {
                     object_email: "",
