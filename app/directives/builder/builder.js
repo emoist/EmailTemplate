@@ -160,7 +160,6 @@ angular.module('email.directives', [
                     </div>
                 `,
                 link: (scope, elem, attrs) => {
-
                     let uploadLink = $(elem).find('.upload-image a');
                     let uploadingIcon = $(elem).find('.uploading')
                     uploadLink.on('click', (e) => {
@@ -486,7 +485,6 @@ angular.module('email.directives', [
                                                 }
                                                 ]
                                             }
-
                                         case 'button':
                                             return {
                                                 tagName: 'mj-section',
@@ -564,7 +562,6 @@ angular.module('email.directives', [
                                                     }]
                                                 }]
                                             }
-
                                         case 'image':
                                             return {
                                                 tagName: 'mj-section',
@@ -1132,7 +1129,7 @@ angular.module('email.directives', [
             restrict: 'E',
             templateUrl: 'directives/builder/layouts/' + variables.defaultLayout + '/builder.html',
             controller: [
-                '$scope', '$rootScope', 'utils', 'storage', 'dragulaService', '$interpolate', '$translate', '$templateCache', 'variables' ,'$routeParams', 'store', '$location', function emailBuilderCtrl($scope, $rootScope, utils, storage, dragulaService, $interpolate, $translate, $templateCache, variables, $routeParams, store, $location) {
+                '$scope', '$rootScope', 'utils', 'storage', 'dragulaService', '$interpolate', '$translate', '$templateCache', 'variables' ,'$routeParams', 'store', '$location', '$http', function emailBuilderCtrl($scope, $rootScope, utils, storage, dragulaService, $interpolate, $translate, $templateCache, variables, $routeParams, store, $location, $http) {
                     $scope.email_id = $routeParams.id;
                     $scope.detailEnable = false;
 
@@ -1362,6 +1359,7 @@ angular.module('email.directives', [
                             return utils.notify(utils.translate('nothing_to_export')).log();
                         $scope.exportAsHtml = false;
                         $scope.currentElement = 'export';
+                        $scope.detailEnable = true;
                         // $scope.changeHtml();
                     };
 
@@ -1384,14 +1382,22 @@ angular.module('email.directives', [
                      * Download Email as HTML
                      */
                     $scope.downloadHtml = function () {
-                        var a = document.createElement('a');
-                        a.target = '_blank';
                         utils.trackEvent('Email', 'export', 'HTML');
-                        a.href = 'data:attachment/html,' + encodeURI($scope.Email.html);
-                        a.download = utils.uid('export') + '.html';
-                        document.body.appendChild(a);
-                        a.click();
-                        document.body.removeChild(a);
+                        var data = {
+                            folder: utils.uid('export'),
+                            content: $scope.Email.html
+                        }
+                        $http.post('/export_html', data)
+                        .then(response => {
+                            var a = document.createElement('a');
+                            a.target = '_blank';
+                            a.href = '/download/' + response.data;
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                        }, err => {
+                            utils.notify(err.data).error();
+                        })
                     };
 
                     /**

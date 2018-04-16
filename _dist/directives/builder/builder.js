@@ -1362,6 +1362,7 @@ angular.module('email.directives', [
                             return utils.notify(utils.translate('nothing_to_export')).log();
                         $scope.exportAsHtml = false;
                         $scope.currentElement = 'export';
+                        $scope.detailEnable = true;
                         // $scope.changeHtml();
                     };
 

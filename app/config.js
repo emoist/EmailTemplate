@@ -12,11 +12,12 @@ const defaultFontFamily = [
   '\'Trebuchet MS\', Helvetica, sans-serif',
   'Verdana, Geneva, sans-serif',
   '\'Courier New\', Courier, monospace',
-  '\'Lucida Console\', Monaco, monospace'
+  '\'Lucida Console\', Monaco, monospace',
+  'Montserrat'
 ];
 
 const emailBuilderConfigurations = {
-  assetsPath: 'http://localhost:9000/assets',
+  assetsPath: 'assets',
   authPath: 'auth/layouts', // auth layout
   containerPath: 'container/layouts', // email container
   defaultLayout: 'modern', // modern or material
@@ -164,7 +165,7 @@ const emailBuilderConfigurations = {
           }
         }
       },
-      template: '<table class="main" align="center" width="100%" cellspacing="0" cellpadding="0" border="0" ng-style="{backgroundColor: element.options.backgroundColor}" style="display: table;" data-type="social-links">\n    <tbody>\n    <tr>\n        <td class="social" align="{{element.options.align}}" style="padding: {{ element.options.padding | arrToPadding  }}">\n            <a href="{{element.options.links.facebook.link}}" target="_blank" style="border: none;text-decoration: none;" class="facebook">\n                <img border="0" ng-if="element.options.links.facebook.active" src="assets/social/facebook.png">\n            </a>\n            <a href="{{element.options.links.twitter.link}}" target="_blank" style="border: none;text-decoration: none;" class="twitter">\n                <img border="0" ng-if="element.options.links.twitter.active" src="assets/social/twitter.png">\n            </a>\n            <a href="{{element.options.links.linkedin.link}}" target="_blank" style="border: none;text-decoration: none;" class="linkedin">\n                <img border="0" ng-if="element.options.links.linkedin.active" src="assets/social/linkedin.png">\n            </a>\n            <a href="{{element.options.links.youtube.link}}" target="_blank" style="border: none;text-decoration: none;" class="youtube">\n                <img border="0" ng-if="element.options.links.youtube.active" src="assets/social/youtube.png">\n            </a>\n        </td>\n    </tr>\n    </tbody>\n</table>'
+      template: '<table class="main" align="center" width="100%" cellspacing="0" cellpadding="0" border="0" ng-style="{backgroundColor: element.options.backgroundColor}" style="display: table;" data-type="social-links">\n    <tbody>\n    <tr>\n        <td class="social" align="{{element.options.align}}" style="padding: {{ element.options.padding | arrToPadding  }}">\n            <a href="{{element.options.links.facebook.link}}" target="_blank" style="border: none;text-decoration: none;" class="facebook">\n                <img border="0" ng-if="element.options.links.facebook.active" src="assets/imgs/social/facebook.png">\n            </a>\n            <a href="{{element.options.links.twitter.link}}" target="_blank" style="border: none;text-decoration: none;" class="twitter">\n                <img border="0" ng-if="element.options.links.twitter.active" src="assets/imgs/social/twitter.png">\n            </a>\n            <a href="{{element.options.links.linkedin.link}}" target="_blank" style="border: none;text-decoration: none;" class="linkedin">\n                <img border="0" ng-if="element.options.links.linkedin.active" src="assets/imgs/social/linkedin.png">\n            </a>\n            <a href="{{element.options.links.youtube.link}}" target="_blank" style="border: none;text-decoration: none;" class="youtube">\n                <img border="0" ng-if="element.options.links.youtube.active" src="assets/imgs/social/youtube.png">\n            </a>\n        </td>\n    </tr>\n    </tbody>\n</table>'
     },
     'divider': {
       type: 'divider',
@@ -199,7 +200,7 @@ const emailBuilderConfigurations = {
       defaultOptions: {
         align: 'center',
         padding: ["15px", "15px", "15px", "15px"],
-        image: 'assets/350x150.jpg',
+        image: 'assets/imgs/350x150.jpg',
         width: '370',
         backgroundColor: '#ffffff',
         altTag: '',
@@ -222,7 +223,7 @@ const emailBuilderConfigurations = {
       },
       defaultOptions: {
         padding: ["15px", "15px", "15px", "15px"],
-        image: 'assets/340x145.jpg',
+        image: 'assets/imgs/340x145.jpg',
         width: '340',
         backgroundColor: '#ffffff',
         altTag: '',
@@ -256,7 +257,7 @@ const emailBuilderConfigurations = {
       },
       defaultOptions: {
         padding: ["15px", "15px", "15px", "15px"],
-        image: 'assets/340x145.jpg',
+        image: 'assets/imgs/340x145.jpg',
         width: '340',
         backgroundColor: '#ffffff',
         altTag: '',
@@ -290,8 +291,8 @@ const emailBuilderConfigurations = {
       },
       defaultOptions: {
         padding: ["15px", "15px", "15px", "15px"],
-        image1: 'assets/255x154.jpg',
-        image2: 'assets/255x154.jpg',
+        image1: 'assets/imgs/255x154.jpg',
+        image2: 'assets/imgs/255x154.jpg',
         width1: '255',
         width2: '255',
         backgroundColor: '#ffffff',
@@ -340,9 +341,9 @@ const emailBuilderConfigurations = {
       },
       defaultOptions: {
         padding: ["15px", "15px", "15px", "15px"],
-        image1: 'assets/154x160.jpg',
-        image2: 'assets/154x160.jpg',
-        image3: 'assets/154x160.jpg',
+        image1: 'assets/imgs/154x160.jpg',
+        image2: 'assets/imgs/154x160.jpg',
+        image3: 'assets/imgs/154x160.jpg',
         width1: '154',
         width2: '154',
         width3: '154',

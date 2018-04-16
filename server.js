@@ -6,10 +6,11 @@ jwt         = require('jsonwebtoken'),
 bcrypt      = require('bcrypt'),
 config      = require('./config.json'),
 mysql       = require('mysql'),
+async       = require('async'),
 saltRounds  = 10,
 app         = express(),
 multer      =  require( 'multer' ),
-upload      =  multer( { dest: 'app/uploads/' } )
+upload      =  multer( { dest: 'app/uploads/' } );
 
 var connection = mysql.createConnection({
     host     : process.env.RDS_HOSTNAME || 'localhost',
@@ -19,6 +20,15 @@ var connection = mysql.createConnection({
     database : process.env.RDS_DB_NAME  || config.dbName
 })
 
+/**
+ * DB TABLES
+ *  - USERS
+ *      id: int, fName: varchar, lName: varchar, email: varchar, password: varchar, role: varchar
+ *  - EMAILS
+ *      id: int, template: text, user_id: int, is_thumbnail: tinyint, object_email: varchar, cible: varchar, ref_traffic: varchar, desinscription: varchar
+ *  - IMAGES
+ *      id: int, name: varchar, original_name: varchar
+ */
 connection.connect(function(error) {
     if (error) {
         console.error('error connecting:' + error.stack)
@@ -209,6 +219,76 @@ app.delete('/galleries/:id', function(req, res, next) {
         })
         res.end(JSON.stringify(req.params.id))
     })
+});
+
+// Export html
+app.post('/export_html', function(req, res, next) {
+    var path = require('path');
+    var zipdir = require('zip-dir');
+    var fs = require("fs-extra");
+    var http = require('http');
+
+    var dir = req.body.folder;
+    var content = req.body.content;
+    fs.mkdirSync(dir);
+
+    async.parallel([
+        function(callback) {
+            var html_path = path.join(req.body.folder, req.body.folder + '.html')
+            fs.writeFile(html_path, content, function(err, data) {
+                callback()
+            });
+        },
+        function(callback) {
+            var assets_dir = path.join(dir, 'assets', 'imgs');
+            fs.copy('app/assets/imgs', assets_dir, function(err) {
+                if (err){
+                    console.log('An error occured while copying the folder.')
+                    return console.error(err)
+                }
+                callback()
+            })
+        },
+        function(callback) {
+            var uploads_dir = path.join(dir, 'uploads/');
+            var substrings = content.split("uploads/");
+            var position = 0;
+            var files = [];
+            for (var i = 1; i < substrings.length; i++) {
+                position = substrings[i].search('"');
+                files.push(substrings[i].substring(0, position));
+            }
+            
+            async.map(files, function(file, callback) {
+                fs.copy('app/uploads/' + file, uploads_dir + file, function(err) {
+                    if (err){
+                        console.log('An error occured while copying the folder.')
+                        return console.error(err)
+                    }
+                    callback()
+                })
+            }, function(err, results) {
+                callback()
+            })
+        }
+    ], function(err, resutls) {
+        zipdir(dir, function (err, buffer) {
+            fs.writeFile(dir + '.zip', buffer, function(err, data) {
+                fs.remove(dir);
+                res.writeHead(200, {
+                    'Content-Type': 'application/json'
+                })
+                res.end(JSON.stringify(dir + '.zip'));
+            });
+        });
+    })
+});
+
+app.get('/download/:file', function(req, res) {
+    var fs = require("fs-extra");
+    res.download(req.params.file, function() {
+        fs.remove(req.params.file);
+    });
 });
 
 app.set('port', process.env.PORT || 9000)
