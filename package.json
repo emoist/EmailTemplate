@@ -26,7 +26,6 @@
     "start": "gulp && NODE_ENV=production && node server.js"
   },
   "dependencies": {
-    "asyn": "0.0.1",
     "async": "^2.6.0",
     "aws-sdk": "^2.212.1",
     "bcrypt": "^1.0.3",
