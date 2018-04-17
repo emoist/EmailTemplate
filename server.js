@@ -9,8 +9,21 @@ mysql       = require('mysql'),
 async       = require('async'),
 saltRounds  = 10,
 app         = express(),
-multer      =  require( 'multer' ),
-upload      =  multer( { dest: 'app/uploads/' } );
+multer      = require( 'multer' ),
+path        = require('path'),
+crypto      = require('crypto')
+
+var storage = multer.diskStorage({
+  destination: 'app/uploads/',
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      if (err) return cb(err)
+
+      cb(null, raw.toString('hex') + path.extname(file.originalname))
+    })
+  }
+})
+var upload = multer({ storage: storage })
 
 var connection = mysql.createConnection({
     host     : process.env.RDS_HOSTNAME || 'localhost',
@@ -223,7 +236,6 @@ app.delete('/galleries/:id', function(req, res, next) {
 
 // Export html
 app.post('/export_html', function(req, res, next) {
-    var path = require('path');
     var zipdir = require('zip-dir');
     var fs = require("fs-extra");
     var http = require('http');

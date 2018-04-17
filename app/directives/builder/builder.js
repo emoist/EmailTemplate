@@ -1039,38 +1039,44 @@ angular.module('email.directives', [
                         // Remove multine breaks
                         email.html = utils.removeLineBreaks(email.html);
                         var data;
-                        if (email_id == 'create') {
-                            data = {
-                                template: encodeURI(JSON.stringify(email)), 
-                                user_id: user.id,
-                                object_email: $rootScope.objectEmail.object_email,
-                                cible: $rootScope.objectEmail.cible,
-                                ref_traffic: $rootScope.objectEmail.ref_traffic,
-                                desinscription: $rootScope.objectEmail.desinscription
-                            };
-                            
-                            $http.post('/emails/create', data)
-                            .then(response => {
-                                resolve(response.data)
-                            }, err => {
-                                utils.notify(err.data).error();
-                            })
+
+                        if (angular.isUndefined($rootScope.objectEmail.object_email) || $rootScope.objectEmail.object_email === 'undefined') {
+                            utils.notify('You should input valid object email').error();
                         }
                         else {
-                            data = {
-                                id: email_id,
-                                template: encodeURI(JSON.stringify(email)), 
-                                object_email: $rootScope.objectEmail.object_email,
-                                cible: $rootScope.objectEmail.cible,
-                                ref_traffic: $rootScope.objectEmail.ref_traffic,
-                                desinscription: $rootScope.objectEmail.desinscription
-                            };
-                            $http.post('/emails/update', data)
-                            .then(response => {
-                                resolve()
-                            }, err => {
-                                utils.notify(err.data).error();
-                            })
+                            if (email_id == 'create') {
+                                data = {
+                                    template: encodeURI(JSON.stringify(email)), 
+                                    user_id: user.id,
+                                    object_email: $rootScope.objectEmail.object_email,
+                                    cible: $rootScope.objectEmail.cible,
+                                    ref_traffic: $rootScope.objectEmail.ref_traffic,
+                                    desinscription: $rootScope.objectEmail.desinscription
+                                };
+                                
+                                $http.post('/emails/create', data)
+                                .then(response => {
+                                    resolve(response.data)
+                                }, err => {
+                                    utils.notify(err.data).error();
+                                })
+                            }
+                            else {
+                                data = {
+                                    id: email_id,
+                                    template: encodeURI(JSON.stringify(email)), 
+                                    object_email: $rootScope.objectEmail.object_email,
+                                    cible: $rootScope.objectEmail.cible,
+                                    ref_traffic: $rootScope.objectEmail.ref_traffic,
+                                    desinscription: $rootScope.objectEmail.desinscription
+                                };
+                                $http.post('/emails/update', data)
+                                .then(response => {
+                                    resolve()
+                                }, err => {
+                                    utils.notify(err.data).error();
+                                })
+                            }
                         }
                     } catch (e) {
                         utils.notify(e).error();
