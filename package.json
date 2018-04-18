@@ -30,7 +30,6 @@
     "aws-sdk": "^2.212.1",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
-    "crypto": "^1.0.1",
     "express": "^4.16.3",
     "fs-extra": "^5.0.0",
     "http": "0.0.0",

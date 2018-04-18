@@ -10,16 +10,15 @@ async       = require('async'),
 saltRounds  = 10,
 app         = express(),
 multer      = require( 'multer' ),
-path        = require('path'),
-crypto      = require('crypto')
+path        = require('path')
 
 var storage = multer.diskStorage({
   destination: 'app/uploads/',
   filename: function (req, file, cb) {
-    crypto.pseudoRandomBytes(16, function (err, raw) {
-      if (err) return cb(err)
-
-      cb(null, raw.toString('hex') + path.extname(file.originalname))
+    bcrypt.genSalt(saltRounds, function(err, salt) {
+        bcrypt.hash(file.originalname, salt, function(err, hash) {
+            cb(null, hash.toString('hex') + path.extname(file.originalname))
+        })
     })
   }
 })
