@@ -1,5 +1,5 @@
 {
-	"S3_BUCKET": "test-email-builder",
+	"S3_BUCKET": "viktor-arthur-bucket-p7511vo1uw72",
 	"secret": "email-builder",
 	"dbName": "emails",
 	"aws": {

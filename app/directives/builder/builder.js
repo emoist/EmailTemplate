@@ -822,7 +822,7 @@ angular.module('email.directives', [
                                             Object.keys(element.options.links).forEach(key => {
                                                 if (element.options.links[key].active) {
                                                     links += `<a href="${element.options.links[key].link}" target="_blank" style="border: none;text-decoration: none;">
-                                                                <img border="0" src="${variables.assetsPath}/social/${key}.png">
+                                                                <img border="0" src="${variables.assetsPath}/imgs/social/${key}.png">
                                                              </a>`
                                                 }
                                             })

@@ -11,6 +11,7 @@ aws         = require('aws-sdk'),
 multer      = require( 'multer' ),
 multerS3    = require('multer-s3'),
 path        = require('path'),
+crypto      = require('crypto'),
 saltRounds  = 10,
 app         = express()
 
@@ -28,8 +29,8 @@ app         = express()
 aws.config.update({
     accessKeyId: config.aws.accessKeyId,
     secretAccessKey: config.aws.secretAccessKey,
-    region: config.aws.region
-})
+    region: process.env.AWS_DEFAULT_REGION || config.aws.region
+}) 
 
 var s3 = new aws.S3()
 
@@ -53,16 +54,14 @@ s3.putBucketCors(corsParams, function(err, data) {
     } else {
     }
 });
-
+// 
 var storage = multerS3({
     s3: s3,
-    bucket: config.S3_BUCKET,
+    bucket: process.env.S3_BUCKET || config.S3_BUCKET,
     key: function (req, file, cb) {
-        bcrypt.genSalt(saltRounds, function(err, salt) {
-            bcrypt.hash(file.originalname, salt, function(err, hash) {
-                cb(null, hash.toString('hex') + path.extname(file.originalname))
-            })
-        })
+        var hash = crypto.createHmac('sha256', file.originalname)
+                   .digest('hex')
+        cb(null, 'uploads/' + hash + path.extname(file.originalname))
     }
 })
 
@@ -231,8 +230,6 @@ app.get('/emails/:id', (req, res, next) => {
 
 // Upload Image
 app.post('/upload', upload.single('photo'), function(req, res, next) {
-    console.log(req.file);
-    
     if ( !req.file.mimetype.startsWith( 'image/' ) ) {
         return res.status( 422 ).json( {
             error : 'The uploaded file must be an image'
@@ -306,28 +303,6 @@ app.post('/export_html', function(req, res, next) {
                 callback()
             })
         },
-        function(callback) {
-            var uploads_dir = path.join(dir, 'uploads/');
-            var substrings = content.split("uploads/");
-            var position = 0;
-            var files = [];
-            for (var i = 1; i < substrings.length; i++) {
-                position = substrings[i].search('"');
-                files.push(substrings[i].substring(0, position));
-            }
-            
-            async.map(files, function(file, callback) {
-                fs.copy('app/uploads/' + file, uploads_dir + file, function(err) {
-                    if (err){
-                        console.log('An error occured while copying the folder.')
-                        return console.error(err)
-                    }
-                    callback()
-                })
-            }, function(err, results) {
-                callback()
-            })
-        }
     ], function(err, resutls) {
         zipdir(dir, function (err, buffer) {
             fs.writeFile(dir + '.zip', buffer, function(err, data) {
