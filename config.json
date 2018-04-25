@@ -1,4 +1,10 @@
 {
-  "secret": "email-builder",
-  "dbName": "emails"
+	"S3_BUCKET": "test-email-builder",
+	"secret": "email-builder",
+	"dbName": "emails",
+	"aws": {
+		"accessKeyId": "AKIAJFMDMZ6Y46OEAJPQ",
+		"secretAccessKey": "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",
+		"region": "eu-west-1"
+	}
 }
