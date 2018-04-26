@@ -15,16 +15,15 @@ crypto      = require('crypto'),
 saltRounds  = 10,
 app         = express()
 
-// var storage = multer.diskStorage({
-//   destination: 'app/uploads/',
-//   filename: function (req, file, cb) {
-//     bcrypt.genSalt(saltRounds, function(err, salt) {
-//         bcrypt.hash(file.originalname, salt, function(err, hash) {
-//             cb(null, hash.toString('hex') + path.extname(file.originalname))
-//         })
-//     })
-//   }
-// })
+/**
+ * DB TABLES
+ *  - USERS
+ *      id: int, fName: varchar, lName: varchar, email: varchar, password: varchar, role: varchar
+ *  - EMAILS
+ *      id: int, template: text, user_id: int, is_thumbnail: tinyint, object_email: varchar, cible: varchar, ref_traffic: varchar, desinscription: varchar
+ *  - IMAGES
+ *      id: int, name: varchar, original_name: varchar
+ */
 
 aws.config.update({
     accessKeyId: config.aws.accessKeyId,
@@ -34,27 +33,6 @@ aws.config.update({
 
 var s3 = new aws.S3()
 
-// Create initial parameters JSON for putBucketCors
-var thisConfig = {
-    AllowedHeaders:["Authorization"],
-    AllowedMethods:[],
-    AllowedOrigins:["*"],
-    ExposeHeaders:[],
-    MaxAgeSeconds:3000
-};
-
-// create CORS params
-thisConfig.AllowedMethods = ['GET', 'POST', 'PUT', 'DELETE', 'HEAD'];
-var corsRules = new Array(thisConfig);
-var corsParams = {Bucket: config.S3_BUCKET, CORSConfiguration: {CORSRules: corsRules}};
-
-// set the new CORS configuration on the selected bucket
-s3.putBucketCors(corsParams, function(err, data) {
-    if (err) {
-    } else {
-    }
-});
-// 
 var storage = multerS3({
     s3: s3,
     bucket: process.env.S3_BUCKET || config.S3_BUCKET,
@@ -75,15 +53,6 @@ var connection = mysql.createConnection({
     database : process.env.RDS_DB_NAME  || config.dbName
 })
 
-/**
- * DB TABLES
- *  - USERS
- *      id: int, fName: varchar, lName: varchar, email: varchar, password: varchar, role: varchar
- *  - EMAILS
- *      id: int, template: text, user_id: int, is_thumbnail: tinyint, object_email: varchar, cible: varchar, ref_traffic: varchar, desinscription: varchar
- *  - IMAGES
- *      id: int, name: varchar, original_name: varchar
- */
 connection.connect(function(error) {
     if (error) {
         console.error('error connecting:' + error.stack)
@@ -236,7 +205,7 @@ app.post('/upload', upload.single('photo'), function(req, res, next) {
         } )
     }
 
-    var sql = 'INSERT INTO `images` (name, original_name) VALUES ("' + req.file.location + '", "' + req.file.originalname + '")'
+    var sql = 'INSERT INTO `images` (name, original_name) VALUES ("' + req.file.key + '", "' + req.file.originalname + '")'
     connection.query(sql, function(err, results, fields) {
         if (err) {
             res.writeHead(403)
@@ -303,6 +272,50 @@ app.post('/export_html', function(req, res, next) {
                 callback()
             })
         },
+        function(callback) {
+            console.log(dir);
+            var substrings = content.split("uploads/");
+            var position = 0;
+            var files = [];
+            for (var i = 1; i < substrings.length; i++) {
+                position = substrings[i].search('"');
+                files.push("uploads/" + substrings[i].substring(0, position));
+            }
+
+            async.map(files, function(file, callback) {
+                var params = {Bucket: process.env.S3_BUCKET || config.S3_BUCKET, Key: file}
+                s3.getObject(params, function(err, data) {
+                    if (err) console.log(err, err.stack); // an error occurred
+                    else {
+                        fs.exists(dir + '/uploads', (exists) => {
+                            if (exists) {
+                                fs.writeFile(dir + '/' + file, data.Body, {encoding: null}, function(fserr){
+                                    if(fserr){
+                                        //if there is problem just print to console and move on.
+                                        callback(fserr);
+                                        return;
+                                    }
+                                    callback();
+                                });
+                            }
+                            else {
+                                fs.mkdirSync(dir + '/uploads');
+                                fs.writeFile(dir + '/' + file, data.Body, {encoding: null}, function(fserr){
+                                    if(fserr){
+                                        //if there is problem just print to console and move on.
+                                        callback(fserr);
+                                        return;
+                                    }
+                                    callback();
+                                });
+                            }
+                        })
+                    }
+                });
+            }, function(err, results) {
+                callback()
+            })
+        }
     ], function(err, resutls) {
         zipdir(dir, function (err, buffer) {
             fs.writeFile(dir + '.zip', buffer, function(err, data) {
