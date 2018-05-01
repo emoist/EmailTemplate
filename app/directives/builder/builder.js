@@ -1401,8 +1401,9 @@ angular.module('email.directives', [
                      */
                     $scope.downloadHtml = function () {
                         utils.trackEvent('Email', 'export', 'HTML');
+                        var ref_traffic = $rootScope.objectEmail.ref_traffic
                         var data = {
-                            folder: utils.uid('export'),
+                            folder: ref_traffic,
                             content: $scope.Email.html
                         }
                         $http.post('/export_html', data)

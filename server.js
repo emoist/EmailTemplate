@@ -15,6 +15,9 @@ crypto      = require('crypto'),
 saltRounds  = 10,
 app         = express()
 
+var bucket = process.env.S3_BUCKET || config.S3_BUCKET
+var dns = process.env.DNS ? 'http://' + process.env.DNS : ''
+
 /**
  * DB TABLES
  *  - USERS
@@ -29,13 +32,14 @@ aws.config.update({
     accessKeyId: config.aws.accessKeyId,
     secretAccessKey: config.aws.secretAccessKey,
     region: process.env.AWS_DEFAULT_REGION || config.aws.region
-}) 
+})
 
 var s3 = new aws.S3()
+var ses = new aws.SES()
 
 var storage = multerS3({
     s3: s3,
-    bucket: process.env.S3_BUCKET || config.S3_BUCKET,
+    bucket: bucket,
     key: function (req, file, cb) {
         var hash = crypto.createHmac('sha256', file.originalname)
                    .digest('hex')
@@ -251,17 +255,14 @@ app.post('/export_html', function(req, res, next) {
     var fs = require("fs-extra");
     var http = require('http');
 
-    var dir = req.body.folder;
+    var date = new Date();
+    var ref_traffic = req.body.folder;
+    var subject = ref_traffic + ' ' + date.toUTCString();
+    var dir = 'exports' + ref_traffic + date.getTime();
     var content = req.body.content;
     fs.mkdirSync(dir);
 
     async.parallel([
-        function(callback) {
-            var html_path = path.join(req.body.folder, req.body.folder + '.html')
-            fs.writeFile(html_path, content, function(err, data) {
-                callback()
-            });
-        },
         function(callback) {
             var assets_dir = path.join(dir, 'assets', 'imgs');
             fs.copy('app/assets/imgs', assets_dir, function(err) {
@@ -273,7 +274,6 @@ app.post('/export_html', function(req, res, next) {
             })
         },
         function(callback) {
-            console.log(dir);
             var substrings = content.split("uploads/");
             var position = 0;
             var files = [];
@@ -283,7 +283,7 @@ app.post('/export_html', function(req, res, next) {
             }
 
             async.map(files, function(file, callback) {
-                var params = {Bucket: process.env.S3_BUCKET || config.S3_BUCKET, Key: file}
+                var params = {Bucket: bucket, Key: file}
                 s3.getObject(params, function(err, data) {
                     if (err) console.log(err, err.stack); // an error occurred
                     else {
@@ -315,24 +315,66 @@ app.post('/export_html', function(req, res, next) {
             }, function(err, results) {
                 callback()
             })
+        },
+        function(callback) {
+            var html_path = path.join(dir, dir + '.html')
+            content = content.replace("uploads/", dns + "/uploads/")
+            content = content.replace("assets/", dns + "/assets/")
+            fs.writeFile(html_path, content, function(err, data) {
+                callback()
+            });
+        },
+        function(callback) {
+            zipdir(dir, function (err, buffer) {
+                s3.putObject({
+                    Bucket: bucket,
+                    Key: dir + '.zip',
+                    Body: buffer,
+                    ACL: 'public-read'
+                  },function (resp) {
+                    callback()
+                });
+            });
+        },
+        function(callback) {
+            const params = {
+                Destination: {
+                  ToAddresses: ['romanjin2017@outlook.com']
+                },
+                Message: {
+                  Body: {
+                    Html: {
+                      Charset: 'UTF-8',
+                      Data: content
+                    }
+                  },
+                  Subject: {
+                    Charset: 'UTF-8',
+                    Data: subject
+                  }
+                },
+                ReturnPath: 'noreply@probtp.digital',
+                Source: 'noreply@probtp.digital'
+            }
+              
+            ses.sendEmail(params, (err, data) => {
+                if (err) console.log(err, err.stack)
+                else console.log(data)
+                callback()
+            })
         }
     ], function(err, resutls) {
-        zipdir(dir, function (err, buffer) {
-            fs.writeFile(dir + '.zip', buffer, function(err, data) {
-                fs.remove(dir);
-                res.writeHead(200, {
-                    'Content-Type': 'application/json'
-                })
-                res.end(JSON.stringify(dir + '.zip'));
-            });
-        });
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
+        })
+        res.end(JSON.stringify(dir));
     })
 });
 
-app.get('/download/:file', function(req, res) {
+app.get('/download/:folder', function(req, res) {
     var fs = require("fs-extra");
-    res.download(req.params.file, function() {
-        fs.remove(req.params.file);
+    res.download(path.join(req.params.folder, req.params.folder + '.html'), function() {
+        fs.remove(req.params.folder);
     });
 });
 
