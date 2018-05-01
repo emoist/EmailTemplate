@@ -35,7 +35,6 @@ aws.config.update({
 })
 
 var s3 = new aws.S3()
-var ses = new aws.SES()
 
 var storage = multerS3({
     s3: s3,
@@ -328,7 +327,7 @@ app.post('/export_html', function(req, res, next) {
             zipdir(dir, function (err, buffer) {
                 s3.putObject({
                     Bucket: bucket,
-                    Key: dir + '.zip',
+                    Key: 'uploads/' + dir + '.zip',
                     Body: buffer,
                     ACL: 'public-read'
                   },function (resp) {
@@ -337,6 +336,16 @@ app.post('/export_html', function(req, res, next) {
             });
         },
         function(callback) {
+            var aws_ses = require('aws-sdk');
+
+            aws_ses.config.update({
+                accessKeyId: config.ses.accessKeyId,
+                secretAccessKey: config.ses.secretAccessKey,
+                region: config.ses.region
+            })
+
+            var ses = new aws_ses.SES()
+            
             const params = {
                 Destination: {
                   ToAddresses: ['dddintftec.runme@previews.emailonacid.com']

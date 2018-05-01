@@ -6,5 +6,10 @@
 		"accessKeyId": "AKIAJFMDMZ6Y46OEAJPQ",
 		"secretAccessKey": "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",
 		"region": "eu-west-1"
+	},
+	"ses": {
+		"accessKeyId": "AKIAJ73SRL534HQOOPVA",
+		"secretAccessKey": "Ak0o2eOFPTF08zcKY+NQLc1zHP3SiD2oSil5QjXGJC0d",
+		"region": "eu-west-1"
 	}
 }
