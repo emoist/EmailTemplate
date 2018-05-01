@@ -18,10 +18,13 @@ angular.module('email.directives')
 			templateUrl: 'directives/sidebar/object-email/template.html',
 			controller: ['$scope', '$rootScope', function emailsNavbarCtrl($scope, $rootScope) {
 				$rootScope.objectEmail = {
-                    object_email: "",
+					object_email: "",
+					dm: "",
                     cible: "",
-                    ref_traffic: "",
-                    desinscription: ""
+					ref_traffic: "",
+					produit: "",
+					desinscription: "",
+					commentaire: ""
                 };
 			}]
 		}

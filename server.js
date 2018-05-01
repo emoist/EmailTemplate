@@ -20,7 +20,7 @@ app         = express()
  *  - USERS
  *      id: int, fName: varchar, lName: varchar, email: varchar, password: varchar, role: varchar
  *  - EMAILS
- *      id: int, template: text, user_id: int, is_thumbnail: tinyint, object_email: varchar, cible: varchar, ref_traffic: varchar, desinscription: varchar
+ *      id: int, template: text, user_id: int, is_thumbnail: tinyint, object_email: varchar, cible: varchar, ref_traffic: varchar, desinscription: varchar, dm: varchar, produit: varchar, commentaire: varchar
  *  - IMAGES
  *      id: int, name: varchar, original_name: varchar
  */
@@ -156,7 +156,7 @@ app.get('/emails/templates', (req, res, next) => {
 // Create email template
 app.post('/emails/create', (req, res, next) => {
     var data = req.body
-    var sql = 'INSERT INTO `emails` (template, user_id, object_email, cible, ref_traffic, desinscription) VALUES ("' + data.template + '", ' + data.user_id + ', "' + data.object_email + '", "' + data.cible + '", "' + data.ref_traffic + '", "' + data.desinscription + '")'
+    var sql = 'INSERT INTO `emails` (template, user_id, object_email, cible, ref_traffic, desinscription, dm, produit, commentaire) VALUES ("' + data.template + '", ' + data.user_id + ', "' + data.object_email + '", "' + data.cible + '", "' + data.ref_traffic + '", "' + data.desinscription + '", "' + data.dm + '", "' + data.produit + '", "' + data.commentaire + '")'
     connection.query(sql, function(err, results, fields) {
         if (err) {
             res.writeHead(403)
@@ -175,7 +175,7 @@ app.post('/emails/create', (req, res, next) => {
 // Update email template
 app.post('/emails/update', (req, res, next) => {
     var data = req.body
-    connection.query('UPDATE emails SET template="' + data.template + '", object_email="' + data.object_email +'", cible="' + data.cible +'", ref_traffic="' + data.ref_traffic +'", desinscription="' + data.desinscription +'" WHERE id=' + data.id)
+    connection.query('UPDATE emails SET template="' + data.template + '", object_email="' + data.object_email +'", cible="' + data.cible +'", ref_traffic="' + data.ref_traffic +'", desinscription="' + data.desinscription +'", dm="' + data.dm +'", produit="' + data.produit +'", commentaire="' + data.commentaire +'" WHERE id=' + data.id)
     res.writeHead(200)
     res.end("Email template saved")
 })

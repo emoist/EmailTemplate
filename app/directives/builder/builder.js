@@ -1051,7 +1051,10 @@ angular.module('email.directives', [
                                     object_email: $rootScope.objectEmail.object_email,
                                     cible: $rootScope.objectEmail.cible,
                                     ref_traffic: $rootScope.objectEmail.ref_traffic,
-                                    desinscription: $rootScope.objectEmail.desinscription
+                                    desinscription: $rootScope.objectEmail.desinscription,
+                                    dm: $rootScope.objectEmail.dm,
+                                    produit: $rootScope.objectEmail.produit,
+                                    commentaire: $rootScope.objectEmail.commentaire
                                 };
                                 
                                 $http.post('/emails/create', data)
@@ -1068,7 +1071,10 @@ angular.module('email.directives', [
                                     object_email: $rootScope.objectEmail.object_email,
                                     cible: $rootScope.objectEmail.cible,
                                     ref_traffic: $rootScope.objectEmail.ref_traffic,
-                                    desinscription: $rootScope.objectEmail.desinscription
+                                    desinscription: $rootScope.objectEmail.desinscription,
+                                    dm: $rootScope.objectEmail.dm,
+                                    produit: $rootScope.objectEmail.produit,
+                                    commentaire: $rootScope.objectEmail.commentaire
                                 };
                                 $http.post('/emails/update', data)
                                 .then(response => {
@@ -1161,9 +1167,12 @@ angular.module('email.directives', [
                     $scope.getEmailTemplate = function(id) {
                         var objectEmail = {
                             object_email: "",
+                            dm: "",
                             cible: "",
                             ref_traffic: "",
-                            desinscription: ""
+                            produit: "",
+                            desinscription: "",
+                            commentaire: ""
                         };
 
                         storage.get(id).then(function (email) {
@@ -1177,7 +1186,10 @@ angular.module('email.directives', [
                                     object_email: email.object_email,
                                     cible: email.cible,
                                     ref_traffic: email.ref_traffic,
-                                    desinscription: email.desinscription
+                                    desinscription: email.desinscription,
+                                    dm: email.dm,
+                                    produit: email.produit,
+                                    commentaire: email.commentaire
                                 };
                             }
                             $scope.$evalAsync(function () {
