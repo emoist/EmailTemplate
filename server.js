@@ -339,7 +339,7 @@ app.post('/export_html', function(req, res, next) {
         function(callback) {
             const params = {
                 Destination: {
-                  ToAddresses: ['romanjin2017@outlook.com']
+                  ToAddresses: ['dddintftec.runme@previews.emailonacid.com']
                 },
                 Message: {
                   Body: {
