@@ -319,6 +319,7 @@ app.post('/export_html', function(req, res, next) {
             var html_path = path.join(dir, dir + '.html')
             content = content.replace("uploads/", dns + "/uploads/")
             content = content.replace("assets/", dns + "/assets/")
+            content = '<a href="' + dns + '/uploads/' + dir + '.zip" target="_blank">Click here to download zip</a>' + content;
             fs.writeFile(html_path, content, function(err, data) {
                 callback()
             });
