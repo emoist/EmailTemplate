@@ -16,7 +16,7 @@ saltRounds  = 10,
 app         = express()
 
 var bucket = process.env.S3_BUCKET || config.S3_BUCKET
-var dns = process.env.DNS ? 'http://' + process.env.DNS : ''
+var dns = process.env.DNS ? 'https://' + process.env.DNS : ''
 
 /**
  * DB TABLES
