@@ -325,18 +325,6 @@ app.post('/export_html', function(req, res, next) {
             });
         },
         function(callback) {
-            zipdir(dir, function (err, buffer) {
-                s3.putObject({
-                    Bucket: bucket,
-                    Key: 'uploads/' + dir + '.zip',
-                    Body: buffer,
-                    ACL: 'public-read'
-                  },function (resp) {
-                    callback()
-                });
-            });
-        },
-        function(callback) {
             var aws_ses = require('aws-sdk');
 
             aws_ses.config.update({
@@ -374,10 +362,19 @@ app.post('/export_html', function(req, res, next) {
             })
         }
     ], function(err, resutls) {
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        })
-        res.end(JSON.stringify(dir));
+        zipdir(dir, function (err, buffer) {
+            s3.putObject({
+                Bucket: bucket,
+                Key: 'uploads/' + dir + '.zip',
+                Body: buffer,
+                ACL: 'public-read'
+              },function (resp) {
+                res.writeHead(200, {
+                    'Content-Type': 'application/json'
+                })
+                res.end(JSON.stringify(dir));
+            });
+        });
     })
 });
 
