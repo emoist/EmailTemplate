@@ -316,11 +316,10 @@ app.post('/export_html', function(req, res, next) {
             })
         },
         function(callback) {
-            var html_path = path.join(dir, dir + '.html')
             content = content.replace("uploads/", dns + "/uploads/")
             content = content.replace("assets/", dns + "/assets/")
-            content = '<a href="' + dns + '/uploads/' + dir + '.zip" target="_blank">Click here to download zip</a>' + content;
-            fs.writeFile(html_path, content, function(err, data) {
+            html_content = '<a href="' + dns + '/uploads/' + dir + '.zip" target="_blank">Click here to download zip</a>' + content;
+            fs.writeFile(dir + '.html', html_content, function(err, data) {
                 callback()
             });
         },
@@ -362,17 +361,21 @@ app.post('/export_html', function(req, res, next) {
             })
         }
     ], function(err, resutls) {
-        zipdir(dir, function (err, buffer) {
-            s3.putObject({
-                Bucket: bucket,
-                Key: 'uploads/' + dir + '.zip',
-                Body: buffer,
-                ACL: 'public-read'
-              },function (resp) {
-                res.writeHead(200, {
-                    'Content-Type': 'application/json'
-                })
-                res.end(JSON.stringify(dir));
+        var html_path = path.join(dir, dir + '.html')
+        fs.writeFile(html_path, content, function(err, data) {
+            zipdir(dir, function (err, buffer) {
+                s3.putObject({
+                    Bucket: bucket,
+                    Key: 'uploads/' + dir + '.zip',
+                    Body: buffer,
+                    ACL: 'public-read'
+                  },function (resp) {
+                    fs.remove(dir);
+                    res.writeHead(200, {
+                        'Content-Type': 'application/json'
+                    })
+                    res.end(JSON.stringify(dir));
+                });
             });
         });
     })
@@ -380,8 +383,9 @@ app.post('/export_html', function(req, res, next) {
 
 app.get('/download/:folder', function(req, res) {
     var fs = require("fs-extra");
-    res.download(path.join(req.params.folder, req.params.folder + '.html'), function() {
-        fs.remove(req.params.folder);
+    var file_path = req.params.folder + '.html';
+    res.download(file_path, function() {
+        fs.remove(file_path);
     });
 });
 
