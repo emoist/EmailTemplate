@@ -322,44 +322,44 @@ app.post('/export_html', function(req, res, next) {
             fs.writeFile(dir + '.html', html_content, function(err, data) {
                 callback()
             });
-        },
-        function(callback) {
-            var aws_ses = require('aws-sdk');
-
-            aws_ses.config.update({
-                accessKeyId: config.ses.accessKeyId,
-                secretAccessKey: config.ses.secretAccessKey,
-                region: config.ses.region
-            })
-
-            var ses = new aws_ses.SES()
-            
-            const params = {
-                Destination: {
-                  ToAddresses: ['dddintftec.runme@previews.emailonacid.com']
-                },
-                Message: {
-                  Body: {
-                    Html: {
-                      Charset: 'UTF-8',
-                      Data: content
-                    }
-                  },
-                  Subject: {
-                    Charset: 'UTF-8',
-                    Data: subject
-                  }
-                },
-                ReturnPath: 'noreply@probtp.digital',
-                Source: 'noreply@probtp.digital'
-            }
-              
-            ses.sendEmail(params, (err, data) => {
-                if (err) console.log(err, err.stack)
-                else console.log(data)
-                callback()
-            })
         }
+        // function(callback) {
+        //     var aws_ses = require('aws-sdk');
+
+        //     aws_ses.config.update({
+        //         accessKeyId: config.ses.accessKeyId,
+        //         secretAccessKey: config.ses.secretAccessKey,
+        //         region: config.ses.region
+        //     })
+
+        //     var ses = new aws_ses.SES()
+            
+        //     const params = {
+        //         Destination: {
+        //           ToAddresses: ['dddintftec.runme@previews.emailonacid.com']
+        //         },
+        //         Message: {
+        //           Body: {
+        //             Html: {
+        //               Charset: 'UTF-8',
+        //               Data: content
+        //             }
+        //           },
+        //           Subject: {
+        //             Charset: 'UTF-8',
+        //             Data: subject
+        //           }
+        //         },
+        //         ReturnPath: 'noreply@probtp.digital',
+        //         Source: 'noreply@probtp.digital'
+        //     }
+              
+        //     ses.sendEmail(params, (err, data) => {
+        //         if (err) console.log(err, err.stack)
+        //         else console.log(data)
+        //         callback()
+        //     })
+        // }
     ], function(err, resutls) {
         var html_path = path.join(dir, dir + '.html')
         fs.writeFile(html_path, content, function(err, data) {

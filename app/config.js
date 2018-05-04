@@ -72,20 +72,19 @@ const emailBuilderConfigurations = {
           weightOptions: ['bold', 'bolder', 'lighter', 'inherit', 'initial', 'normal', 100, 200, 300, 400, 500, 600, 700, 800, 900],
           family: 'Arial, Helvetica, sans-serif',
           familyOptions: defaultFontFamily
-        },
+        },  
       },
-      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;background-color:{{element.options.backgroundColor}}" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td style="vertical-align:top;width:600px;">
-                          <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:10px 20px;" align="center"><div style="cursor:auto;color:{{element.options.color}};font-family:{{element.options.font.family}};font-size:{{element.options.font.size}}px;font-weight:{{element.options.font.weight}};line-height:13px;text-align:{{element.options.align}};"><!-- text -->
-                          <br>{{element.options.title}}
-                          </div></td></tr></tbody></table></div><!--[if mso | IE]>
-                        </td></tr></table>
-                        <![endif]--></td></tr>
-                      </tbody>
-                    </table>
-                  </div>`
+      template: `<table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;background-color:{{element.options.backgroundColor}}" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align:top;width:600px;">
+                        <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:10px 20px;" align="center"><div style="cursor:auto;color:{{element.options.color}};font-family:{{element.options.font.family}};font-size:{{element.options.font.size}}px;font-weight:{{element.options.font.weight}};line-height:13px;text-align:{{element.options.align}};"><!-- text -->
+                        <br>{{element.options.title}}
+                        </div></td></tr></tbody></table></div><!--[if mso | IE]>
+                      </td></tr></table>
+                      <![endif]--></td></tr>
+                    </tbody>
+                  </table>`
     },
     'header-logo': {
       type: 'header-logo',
@@ -97,31 +96,47 @@ const emailBuilderConfigurations = {
         second_head: 'builder_header-logo_comment'
       },
       defaultOptions: {
+        backgroundColor: '#7b2b2b',
+        align: 'left',
+        image: 'http://www.probtp.com/event/upload/docs/image/png/2015-08/logo-probtp.png',
+        width: '137',
+        altTag: 'logo-probtp',
+        linkTo: {
+          type: 'link',
+          typeOptions: ['link', 'email', 'none'],
+          link: `https://www.probtp.com?referer=sitemobile&utm_source=<%= delivery.internalName.toLowerCase() %>&utm_medium=e-mail&utm_content=logo&utm_campaign=<%= ref %>-<%= formatDate(new Date(), '%2M-%4Y') %>`
+        },
+        color: '#fff',
+        font: {
+          size: 16,
+          weight: 'bold',
+          weightOptions: ['bold', 'bolder', 'lighter', 'inherit', 'initial', 'normal', 100, 200, 300, 400, 500, 600, 700, 800, 900],
+          family: 'Arial, Ubuntu, Helvetica, sans-serif',
+          familyOptions: defaultFontFamily
+        },
+        text: 'Hello world!'
       },
-      template: `<!-- html version -->
-                  <div style="margin:0px auto;max-width:600px;" data-class="">
-                    <table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;background-color:{{element.options.backgroundColor}}" align="center" border="0">
-                    <tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td style="vertical-align:top;width:600px;">
-                        <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;font-size:0px;line-height:0px;text-align:left;width:100%;"><!--[if mso | IE]>
-                        <table  role="presentation" border="0" cellpadding="0" cellspacing="0">
-                          <tr>
-                            <td style="vertical-align:middle;width:240px;">
-                              <![endif]--><div class="mj-column-per-40 outlook-group-fix" style="vertical-align:middle;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:40%;"><table role="presentation" cellpadding="0" cellspacing="0" style="vertical-align:middle;" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:10px;" align="left"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="left" border="0"><tbody><tr><td style="width:137px;"><a href="https://www.probtp.com?referer=sitemobile&utm_source=<%= delivery.internalName.toLowerCase() %>&utm_medium=e-mail&utm_content=logo&utm_campaign=<%= ref %>-<%= formatDate(new Date(), '%2M-%4Y') %>" target="_blank"><img alt="logo-probtp" height="auto" src="http://www.probtp.com/event/upload/docs/image/png/2015-08/logo-probtp.png" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="137"></a></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
-                            </td>
-                            <td style="vertical-align:middle;width:360px;">
-                              <![endif]--><div class="mj-column-per-60 outlook-group-fix" style="vertical-align:middle;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:60%;"><table role="presentation" cellpadding="0" cellspacing="0" style="vertical-align:middle;" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:5px 15px 5px 0px;" align="right"><div style="cursor:auto;color:#ffffff;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:16px;font-weight:bold;line-height:19px;text-align:right;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
-                            </td>
-                          </tr>
-                        </table>
-                        <![endif]--></div><!--[if mso | IE]>
-                        </td></tr></table>
-                        <![endif]--></td></tr>
-                      </tbody>
-                    </table>
-                  </div>`
+      template: `<table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;background-color:{{element.options.backgroundColor}}" align="center" border="0">
+                  <tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align:top;width:600px;">
+                      <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;font-size:0px;line-height:0px;text-align:left;width:100%;"><!--[if mso | IE]>
+                      <table  role="presentation" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td style="vertical-align:middle;width:240px;">
+                            <![endif]--><div class="mj-column-per-40 outlook-group-fix" style="vertical-align:middle;display:inline-block;direction:ltr;font-size:13px;text-align:{{element.options.width}};width:40%;"><table role="presentation" cellpadding="0" cellspacing="0" style="vertical-align:middle;" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:10px;" align="{{element.options.width}}"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="{{element.options.width}}" border="0"><tbody><tr><td style="width:{{element.options.width}}px;"><img alt="{{element.options.altTag}}" height="auto" src="{{element.options.image}}" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="{{element.options.width}}"></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
+                          </td>
+                          <td style="vertical-align:middle;width:360px;">
+                            <![endif]--><div class="mj-column-per-60 outlook-group-fix" style="vertical-align:middle;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:60%;"><table role="presentation" cellpadding="0" cellspacing="0" style="vertical-align:middle;" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:5px 15px 5px 0px;" align="right"><div style="cursor:auto;color:{{element.options.color}};font-family:{{element.options.font.family}};font-size:{{element.options.font.size}}px;font-weight:{{element.options.font.weight}};line-height:19px;text-align:right;">{{element.options.text}}</div></td></tr></tbody></table></div><!--[if mso | IE]>
+                          </td>
+                        </tr>
+                      </table>
+                      <![endif]--></div><!--[if mso | IE]>
+                      </td></tr></table>
+                      <![endif]--></td></tr>
+                    </tbody>
+                  </table>`
     },
     'double-text_double-cta': {
       type: 'double-text_double-cta',

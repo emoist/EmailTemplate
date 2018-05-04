@@ -506,7 +506,6 @@ angular.module('email.directives', [
                                                                 'font-size': `${element.options.font.size}px`,
                                                                 'font-weight': element.options.font.weight,
                                                                 'font-family': element.options.font.family,
-                                                                'align': element.options.align,
                                                                 'padding': "5px 15px 5px 0",
                                                                 'line-height': '19px',
                                                                 'color': element.options.color
