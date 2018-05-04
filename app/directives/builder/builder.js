@@ -442,6 +442,84 @@ angular.module('email.directives', [
                                 },
                                 children: email.elements.map(element => {
                                     switch (element.type) {
+                                        case 'preheader':
+                                            return {
+                                                tagName: 'mj-section',
+                                                attributes: {
+                                                    'full-width': 'full-width',
+                                                    'background-color': element.options.backgroundColor,
+                                                    'padding': '0px'
+                                                },
+                                                children: [{
+                                                    tagName: 'mj-column',
+                                                    attributes: {
+                                                        'padding': '0px'
+                                                    },
+                                                    children: [{
+                                                        tagName: 'mj-text',
+                                                        attributes: {
+                                                            'align': 'center',
+                                                            'color': '#383838',
+                                                            'font-size': '11px',
+                                                            'line-height': '13px',
+                                                            'padding': '10px 20px'
+                                                        },
+                                                        content: element.options.text
+                                                    }]
+                                                }]
+                                            }
+                                        case 'header-logo':
+                                            return {
+                                                tagName: 'mj-section',
+                                                attributes: {
+                                                    'full-width': 'full-width',
+                                                    'background-color': element.options.backgroundColor,
+                                                    'padding': '0px'
+                                                },
+                                                children: [{
+                                                    tagName: 'mj-group',
+                                                    attributes: {
+                                                        'full-width': 'full-width',
+                                                        'padding': '0px'
+                                                    },
+                                                    children: [{
+                                                        tagName: 'mj-column',
+                                                        attributes: {
+                                                            'width': '40%',
+                                                            'vertical-align': 'middle'
+                                                        },
+                                                        children: [{
+                                                            tagName: 'mj-image',
+                                                            attributes: {
+                                                                'align': element.options.align,
+                                                                'src': element.options.image,
+                                                                'alt': element.options.altTag,
+                                                                'width': element.options.width,
+                                                                'padding': "10px",
+                                                                'href': element.options.linkTo.type === 'link' && element.options.linkTo.link || element.options.linkTo.type === 'email' && `mailto:${element.options.linkTo.link}` || null
+                                                            }
+                                                        }]
+                                                    }, {
+                                                        tagName: 'mj-column',
+                                                        attributes: {
+                                                            'width': '60%',
+                                                            'vertical-align': 'middle'
+                                                        },
+                                                        children: [{
+                                                            tagName: 'mj-text',
+                                                            attributes: {
+                                                                'font-size': `${element.options.font.size}px`,
+                                                                'font-weight': element.options.font.weight,
+                                                                'font-family': element.options.font.family,
+                                                                'align': element.options.align,
+                                                                'padding': "5px 15px 5px 0",
+                                                                'line-height': '19px',
+                                                                'color': element.options.color
+                                                            }
+                                                        }]
+                                                    }]
+                                                }]
+                                            }
                                         case 'title':
                                             return {
                                                 tagName: 'mj-section',

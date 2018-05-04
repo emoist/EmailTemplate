@@ -52,6 +52,342 @@ const emailBuilderConfigurations = {
   },
   disableBlocks: [],
   blocks: {
+    'preheader': {
+      type: 'preheader',
+      sort: 11,
+      element: {
+        type: 'preheader',
+        icon: '&#xE165;',
+        primary_head: 'builder_preheader',
+        second_head: 'builder_preheader_comment'
+      },
+      defaultOptions: {
+      },
+      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="vertical-align:top;width:600px;">
+                          <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:10px 20px;" align="center"><div style="cursor:auto;color:#383838;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:11px;line-height:13px;text-align:center;"><!-- text -->
+                          <br>
+                          Voir l’email dans votre navigateur</div></td></tr></tbody></table></div><!--[if mso | IE]>
+                        </td></tr></table>
+                        <![endif]--></td></tr>
+                      </tbody>
+                    </table>
+                  </div>`
+    },
+    'header-logo': {
+      type: 'header-logo',
+      sort: 12,
+      element: {
+        type: 'header-logo',
+        icon: '&#xE165;',
+        primary_head: 'builder_header-logo',
+        second_head: 'builder_header-logo_comment'
+      },
+      defaultOptions: {
+      },
+      template: `<!-- html version -->
+                  <div style="margin:0px auto;max-width:600px;background:;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;background:;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="vertical-align:top;width:600px;">
+                        <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;font-size:0px;line-height:0px;text-align:left;width:100%;"><!--[if mso | IE]>
+                        <table  role="presentation" border="0" cellpadding="0" cellspacing="0">
+                          <tr>
+                            <td style="vertical-align:middle;width:240px;">
+                              <![endif]--><div class="mj-column-per-40 outlook-group-fix" style="vertical-align:middle;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:40%;"><table role="presentation" cellpadding="0" cellspacing="0" style="vertical-align:middle;" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:10px;" align="left"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="left" border="0"><tbody><tr><td style="width:137px;"><a href="https://www.probtp.com?referer=sitemobile&utm_source=<%= delivery.internalName.toLowerCase() %>&utm_medium=e-mail&utm_content=logo&utm_campaign=<%= ref %>-<%= formatDate(new Date(), '%2M-%4Y') %>" target="_blank"><img alt="logo-probtp" height="auto" src="http://www.probtp.com/event/upload/docs/image/png/2015-08/logo-probtp.png" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="137"></a></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
+                            </td>
+                            <td style="vertical-align:middle;width:360px;">
+                              <![endif]--><div class="mj-column-per-60 outlook-group-fix" style="vertical-align:middle;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:60%;"><table role="presentation" cellpadding="0" cellspacing="0" style="vertical-align:middle;" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:5px 15px 5px 0px;" align="right"><div style="cursor:auto;color:#ffffff;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:16px;font-weight:bold;line-height:19px;text-align:right;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                            </td>
+                          </tr>
+                        </table>
+                        <![endif]--></div><!--[if mso | IE]>
+                        </td></tr></table>
+                        <![endif]--></td></tr>
+                      </tbody>
+                    </table>
+                  </div>`
+    },
+    'double-text_double-cta': {
+      type: 'double-text_double-cta',
+      sort: 13,
+      element: {
+        type: 'preheader',
+        icon: '&#xE165;',
+        primary_head: 'builder_double-text_double-cta',
+        second_head: 'builder_double-text_double-cta_comment'
+      },
+      defaultOptions: {
+      },
+      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;border:5px solid #E1E1E1;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="vertical-align:top;width:300px;">
+                <![endif]--><div class="mj-column-per-50 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:300px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="300"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:separate;" align="center" border="0"><tbody><tr><td style="border:none;border-radius:0px;color:;cursor:auto;padding:15px 30px;" align="center" valign="middle" bgcolor=""><p style="text-decoration:none;background:;color:;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:16px;font-weight:bold;line-height:120%;text-transform:uppercase;margin:0px;"><!-- button --></p></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
+                </td><td style="vertical-align:top;width:300px;">
+                <![endif]--><div class="mj-column-per-50 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:300px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="300"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:separate;" align="center" border="0"><tbody><tr><td style="border:none;border-radius:0px;color:;cursor:auto;padding:15px 30px;" align="center" valign="middle" bgcolor=""><p style="text-decoration:none;background:;color:;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:16px;font-weight:bold;line-height:120%;text-transform:uppercase;margin:0px;"><!-- button --></p></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
+                </td></tr></table>
+                <![endif]--></td></tr></tbody></table></div>`
+    },
+    'icon': {
+      type: 'icon',
+      sort: 15,
+      element: {
+        type: 'preheader',
+        icon: '&#xE165;',
+        primary_head: 'builder_icon',
+        second_head: 'builder_icon_comment'
+      },
+      defaultOptions: {
+      },
+      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align:top;width:600px;">
+                  <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:600px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="600"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td></tr></table>
+                  <![endif]--></td></tr></tbody></table></div>`
+    },
+    'double-icons': {
+      type: 'double-icons',
+      sort: 16,
+      element: {
+        type: 'double-icons',
+        icon: '&#xE165;',
+        primary_head: 'builder_double-icons',
+        second_head: 'builder_double-icons_comment'
+      },
+      defaultOptions: {
+      },
+      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align:top;width:300px;">
+                  <![endif]--><div class="mj-column-per-50 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:300px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="300"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td><td style="vertical-align:top;width:300px;">
+                  <![endif]--><div class="mj-column-per-50 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:300px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="300"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td></tr></table>
+                  <![endif]--></td></tr></tbody></table></div>`
+    },
+    'triple-icons': {
+      type: 'triple-icons',
+      sort: 17,
+      element: {
+        type: 'triple-icons',
+        icon: '&#xE165;',
+        primary_head: 'builder_triple-icons',
+        second_head: 'builder_triple-icons_comment'
+      },
+      defaultOptions: {
+      },
+      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align:top;width:200px;">
+                  <![endif]--><div class="mj-column-per-33 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:200px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="200"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td><td style="vertical-align:top;width:200px;">
+                  <![endif]--><div class="mj-column-per-33 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:200px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="200"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td><td style="vertical-align:top;width:200px;">
+                  <![endif]--><div class="mj-column-per-33 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:200px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="200"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td></tr></table>
+                  <![endif]--></td></tr></tbody></table></div>`
+    },
+    'quadruple-icons': {
+      type: 'quadruple-icons',
+      sort: 18,
+      element: {
+        type: 'quadruple-icons',
+        icon: '&#xE165;',
+        primary_head: 'builder_quadruple-icons',
+        second_head: 'builder_quadruple-icons_comment'
+      },
+      defaultOptions: {
+      },
+      template: `<div style="margin:0px auto;max-width:600px;"><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="vertical-align:top;width:150px;">
+                    <![endif]--><div class="mj-column-per-25 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:150px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="150"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                    </td><td style="vertical-align:top;width:150px;">
+                    <![endif]--><div class="mj-column-per-25 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:150px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="150"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                    </td><td style="vertical-align:top;width:150px;">
+                    <![endif]--><div class="mj-column-per-25 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:150px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="150"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                    </td><td style="vertical-align:top;width:150px;">
+                    <![endif]--><div class="mj-column-per-25 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:150px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="150"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                    </td></tr></table>
+                    <![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
+                    </td></tr></table>
+                    <![endif]-->
+                    <!--[if mso | IE]>
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">
+                      <tr>
+                        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                    <![endif]--><div style="margin:0px auto;max-width:600px;"><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="vertical-align:top;width:150px;">
+                    <![endif]--><div class="mj-column-per-25 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:150px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="150"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                    </td><td style="vertical-align:top;width:150px;">
+                    <![endif]--><div class="mj-column-per-25 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:150px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="150"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                    </td><td style="vertical-align:top;width:150px;">
+                    <![endif]--><div class="mj-column-per-25 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:150px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="150"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                    </td><td style="vertical-align:top;width:150px;">
+                    <![endif]--><div class="mj-column-per-25 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:150px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="150"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                    </td></tr></table>
+                    <![endif]--></td></tr></tbody></table></div>
+`
+    },
+    'image-full_width': {
+      type: 'image-full_width',
+      sort: 19,
+      element: {
+        type: 'image-full_width',
+        icon: '&#xE165;',
+        primary_head: 'builder_image-full_width',
+        second_head: 'builder_image-full_width_comment'
+      },
+      defaultOptions: {
+      },
+      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align:top;width:600px;">
+                  <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:580px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="580"></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td></tr></table>
+                  <![endif]--></td></tr></tbody></table></div>`
+    },
+    'subtitle': {
+      type: 'subtitle',
+      sort: 20,
+      element: {
+        type: 'subtitle',
+        icon: '&#xE165;',
+        primary_head: 'builder_subtitle',
+        second_head: 'builder_subtitle_comment'
+      },
+      defaultOptions: {
+      },
+      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align:top;width:600px;">
+                  <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:16px;font-weight:bold;line-height:22px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td></tr></table>
+                  <![endif]--></td></tr></tbody></table></div>`
+    },
+    'text-content': {
+      type: 'text-content',
+      sort: 21,
+      element: {
+        type: 'text-content',
+        icon: '&#xE165;',
+        primary_head: 'builder_text-content',
+        second_head: 'builder_text-content_comment'
+      },
+      defaultOptions: {
+      },
+      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align:top;width:600px;">
+                  <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td></tr></table>
+                  <![endif]--></td></tr></tbody></table></div>`
+    },
+    'text-cta-with_border': {
+      type: 'text-cta-with_border',
+      sort: 22,
+      element: {
+        type: 'text-cta-with_border',
+        icon: '&#xE165;',
+        primary_head: 'builder_text-cta-with_border',
+        second_head: 'builder_text-cta-with_border_comment'
+      },
+      defaultOptions: {
+      },
+      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;border:5px solid #E1E1E1;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align:top;width:600px;">
+                  <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:600px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="600"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:separate;" align="center" border="0"><tbody><tr><td style="border:none;border-radius:0px;color:;cursor:auto;padding:15px 30px;" align="center" valign="middle" bgcolor=""><p style="text-decoration:none;background:;color:;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:16px;font-weight:bold;line-height:120%;text-transform:uppercase;margin:0px;"><!-- button --></p></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td></tr></table>
+                  <![endif]--></td></tr></tbody></table></div>`
+    },
+    'title-content': {
+      type: 'title-content',
+      sort: 23,
+      element: {
+        type: 'title-content',
+        icon: '&#xE165;',
+        primary_head: 'builder_title-content',
+        second_head: 'builder_title-content_comment'
+      },
+      defaultOptions: {
+      },
+      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align:top;width:600px;">
+                  <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:20px;font-weight:bold;line-height:26px;text-align:center;text-transform:uppercase;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td></tr></table>
+                  <![endif]--></td></tr></tbody></table></div>
+                  `
+    },
+    'mentions-legales': {
+      type: 'mentions-legales',
+      sort: 24,
+      element: {
+        type: 'mentions-legales',
+        icon: '&#xE165;',
+        primary_head: 'builder_mentions-legales',
+        second_head: 'builder_mentions-legales_comment'
+      },
+      defaultOptions: {
+      },
+      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:15px 0px 0px 0px;"><!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align:top;width:600px;">
+                  <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="left"><div style="cursor:auto;color:#939393;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:11px;line-height:13px;text-align:left;"><!-- text --></div></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:15px 5px;" align="left"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="left" border="0"><tbody><tr><td style="width:25px;"><img alt="" height="auto" src="http://www.probtp.com/event/upload/docs/image/png/2017-02/logo-triman-gris.png" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="25"></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td></tr></table>
+                  <![endif]--></td></tr></tbody></table></div>
+                  `
+    },
+    'frise': {
+      type: 'frise',
+      sort: 25,
+      element: {
+        type: 'frise',
+        icon: '&#xE165;',
+        primary_head: 'builder_frise',
+        second_head: 'builder_frise_comment'
+      },
+      defaultOptions: {
+      },
+      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;padding-top:40px;"><!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align:top;width:600px;">
+                  <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:580px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="580"></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td></tr></table>
+                  <![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td></tr></table>
+                  <![endif]-->
+                  <!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" align="center" style="width:600px;">
+                    <tr>
+                      <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                  <![endif]--><div style="margin:0px auto;max-width:600px;"><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align:top;width:600px;">
+                  <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;"><div style="font-size:1px;line-height:10px;white-space:nowrap;"> </div></td></tr></tbody></table></div><!--[if mso | IE]>
+                  </td></tr></table>
+                  <![endif]--></td></tr></tbody></table></div>
+                  `
+    },
     'title': {
       type: 'title',
       sort: 1,
