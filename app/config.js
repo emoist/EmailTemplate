@@ -58,18 +58,29 @@ const emailBuilderConfigurations = {
       element: {
         type: 'preheader',
         icon: '&#xE165;',
-        primary_head: 'builder_preheader',
+        primary_head: 'Preheader',
         second_head: 'builder_preheader_comment'
       },
       defaultOptions: {
+        align: 'center',
+        title: `Voir l'email dans votre navigateur`,
+        backgroundColor: '#fff',
+        color: '#383838',
+        font: {
+          size: 11,
+          weight: 'normal',
+          weightOptions: ['bold', 'bolder', 'lighter', 'inherit', 'initial', 'normal', 100, 200, 300, 400, 500, 600, 700, 800, 900],
+          family: 'Arial, Helvetica, sans-serif',
+          familyOptions: defaultFontFamily
+        },
       },
-      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;background-color:{{element.options.backgroundColor}}" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
                     <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td style="vertical-align:top;width:600px;">
-                          <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:10px 20px;" align="center"><div style="cursor:auto;color:#383838;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:11px;line-height:13px;text-align:center;"><!-- text -->
-                          <br>
-                          Voir l’email dans votre navigateur</div></td></tr></tbody></table></div><!--[if mso | IE]>
+                          <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:10px 20px;" align="center"><div style="cursor:auto;color:{{element.options.color}};font-family:{{element.options.font.family}};font-size:{{element.options.font.size}}px;font-weight:{{element.options.font.weight}};line-height:13px;text-align:{{element.options.align}};"><!-- text -->
+                          <br>{{element.options.title}}
+                          </div></td></tr></tbody></table></div><!--[if mso | IE]>
                         </td></tr></table>
                         <![endif]--></td></tr>
                       </tbody>
@@ -82,13 +93,15 @@ const emailBuilderConfigurations = {
       element: {
         type: 'header-logo',
         icon: '&#xE165;',
-        primary_head: 'builder_header-logo',
+        primary_head: 'Header Logo',
         second_head: 'builder_header-logo_comment'
       },
       defaultOptions: {
       },
       template: `<!-- html version -->
-                  <div style="margin:0px auto;max-width:600px;background:;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;background:;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+                  <div style="margin:0px auto;max-width:600px;" data-class="">
+                    <table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;background-color:{{element.options.backgroundColor}}" align="center" border="0">
+                    <tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
                     <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td style="vertical-align:top;width:600px;">
@@ -236,8 +249,7 @@ const emailBuilderConfigurations = {
                     </td><td style="vertical-align:top;width:150px;">
                     <![endif]--><div class="mj-column-per-25 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:150px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="150"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
                     </td></tr></table>
-                    <![endif]--></td></tr></tbody></table></div>
-`
+                    <![endif]--></td></tr></tbody></table></div>`
     },
     'image-full_width': {
       type: 'image-full_width',

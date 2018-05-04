@@ -448,23 +448,22 @@ angular.module('email.directives', [
                                                 attributes: {
                                                     'full-width': 'full-width',
                                                     'background-color': element.options.backgroundColor,
-                                                    'padding': '0px'
+                                                    'padding': 0
                                                 },
                                                 children: [{
                                                     tagName: 'mj-column',
-                                                    attributes: {
-                                                        'padding': '0px'
-                                                    },
                                                     children: [{
                                                         tagName: 'mj-text',
                                                         attributes: {
-                                                            'align': 'center',
-                                                            'color': '#383838',
-                                                            'font-size': '11px',
+                                                            'font-size': `${element.options.font.size}px`,
+                                                            'font-weight': element.options.font.weight,
+                                                            'font-family': element.options.font.family,
+                                                            'align': element.options.align,
+                                                            'padding': "10px 20px",
                                                             'line-height': '13px',
-                                                            'padding': '10px 20px'
+                                                            'color': element.options.color
                                                         },
-                                                        content: element.options.text
+                                                        content: element.options.title
                                                     }]
                                                 }]
                                             }
@@ -474,14 +473,10 @@ angular.module('email.directives', [
                                                 attributes: {
                                                     'full-width': 'full-width',
                                                     'background-color': element.options.backgroundColor,
-                                                    'padding': '0px'
+                                                    'padding': 0
                                                 },
                                                 children: [{
                                                     tagName: 'mj-group',
-                                                    attributes: {
-                                                        'full-width': 'full-width',
-                                                        'padding': '0px'
-                                                    },
                                                     children: [{
                                                         tagName: 'mj-column',
                                                         attributes: {
@@ -515,7 +510,8 @@ angular.module('email.directives', [
                                                                 'padding': "5px 15px 5px 0",
                                                                 'line-height': '19px',
                                                                 'color': element.options.color
-                                                            }
+                                                            },
+                                                            content: element.options.text
                                                         }]
                                                     }]
                                                 }]
