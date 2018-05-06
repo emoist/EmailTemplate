@@ -515,6 +515,127 @@ angular.module('email.directives', [
                                                     }]
                                                 }]
                                             }
+                                        case 'double-text-double-cta':
+                                            return {
+                                                tagName: 'mj-section',
+                                                attributes: {
+                                                    'full-width': 'full-width',
+                                                    'background-color': element.options.backgroundColor,
+                                                    'padding': `${element.options.padding[0]} ${element.options.padding[1]} ${element.options.padding[2]} ${element.options.padding[3]}`,
+                                                    'border': `${element.options.border.size}px solid ${element.options.border.color}`,
+                                                },
+                                                children: [{
+                                                    tagName: 'mj-column',
+                                                    children: [{
+                                                        tagName: 'mj-image',
+                                                        attributes: {
+                                                            'src': element.options.image1,
+                                                            'alt': element.options.altTag1,
+                                                            'padding': '0 5px',
+                                                            'width': element.options.width1,
+                                                            'href': element.options.linkTo1.type === 'link' && element.options.linkTo1.link || element.options.linkTo1.type === 'email' && `mailto:${element.options.linkTo1.link}` || null
+                                                        }
+                                                    },
+                                                    {
+                                                        tagName: 'mj-text',
+                                                        attributes: {
+                                                            'font-size': '13px',
+                                                            'color': 'rgb(0, 0, 0)',
+                                                            'line-height': '20px',
+                                                            'padding': '0 5px',
+                                                            'font-family': 'Arial, sans-serif'
+                                                            // 'font-family': element.options.font.family
+                                                        },
+                                                        content: element.options.text1
+                                                    },
+                                                    {
+                                                        tagName: 'mj-button',
+                                                        attributes: {
+                                                            'align': 'center',
+                                                            'border-radius': '4px',
+                                                            'background-color': element.options.buttonBackgroundColor1,
+                                                            'font-family': `${element.options.font.family}`,
+                                                            'color': element.options.font.color,
+                                                            'font-size': `${element.options.font.size}px`,
+                                                            'font-weight': element.options.font.weight,
+                                                            'href': element.options.url1
+                                                        },
+                                                        content: element.options.buttonText1
+                                                    }
+                                                    ]
+                                                },
+                                                {
+                                                    tagName: 'mj-column',
+                                                    children: [{
+                                                        tagName: 'mj-image',
+                                                        attributes: {
+                                                            'src': element.options.image2,
+                                                            'alt': element.options.altTag2,
+                                                            'padding': '0 5px',
+                                                            'width': element.options.width2,
+                                                            'href': element.options.linkTo2.type === 'link' && element.options.linkTo2.link || element.options.linkTo2.type === 'email' && `mailto:${element.options.linkTo2.link}` || null
+                                                        }
+                                                    },
+                                                    {
+                                                        tagName: 'mj-text',
+                                                        attributes: {
+                                                            'font-size': '13px',
+                                                            'color': 'rgb(0, 0, 0)',
+                                                            'line-height': '20px',
+                                                            'padding': '0 5px',
+                                                            'font-family': 'Arial, sans-serif'
+                                                            // 'font-family': element.options.font.family
+                                                        },
+                                                        content: element.options.text2
+                                                    },
+                                                    {
+                                                        tagName: 'mj-button',
+                                                        attributes: {
+                                                            'align': 'center',
+                                                            'border-radius': '4px',
+                                                            'background-color': element.options.buttonBackgroundColor2,
+                                                            'font-family': `${element.options.font.family}`,
+                                                            'color': element.options.font.color,
+                                                            'font-size': `${element.options.font.size}px`,
+                                                            'font-weight': element.options.font.weight,
+                                                            'href': element.options.url2
+                                                        },
+                                                        content: element.options.buttonText2
+                                                    }
+                                                    ]
+                                                }
+                                                ]
+                                            }
+                                        case 'icon':
+                                            return {
+                                                tagName: 'mj-section',
+                                                attributes: {
+                                                    'full-width': 'full-width',
+                                                    'background-color': element.options.backgroundColor,
+                                                    'padding': `${element.options.padding[0]} ${element.options.padding[1]} ${element.options.padding[2]} ${element.options.padding[3]}`,
+                                                    'align': element.options.align
+                                                },
+                                                children: [{
+                                                    tagName: 'mj-column',
+                                                    children: [{
+                                                        tagName: 'mj-image',
+                                                        attributes: {
+                                                            'src': element.options.image,
+                                                            'alt': element.options.altTag,
+                                                            'width': element.options.width,
+                                                            'padding': 0,
+                                                            'href': element.options.linkTo.type === 'link' && element.options.linkTo.link || element.options.linkTo.type === 'email' && `mailto:${element.options.linkTo.link}` || null
+                                                        }
+                                                    }, {
+                                                        tagName: 'mj-text',
+                                                        attributes: {
+                                                            'color': element.options.color,
+                                                            'font-family': element.options.font.family
+                                                        },
+                                                        content: `<h4 style="font-weight: ${element.options.font.weight};font-size: ${element.options.font.size};margin: 0;">${element.options.text}</h4>`
+                                                    }]
+                                                }]
+                                            }
                                         case 'title':
                                             return {
                                                 tagName: 'mj-section',

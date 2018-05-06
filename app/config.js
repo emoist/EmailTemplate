@@ -58,8 +58,8 @@ const emailBuilderConfigurations = {
       element: {
         type: 'preheader',
         icon: '&#xE165;',
-        primary_head: 'Preheader',
-        second_head: 'builder_preheader_comment'
+        primary_head: 'builder_el_preheader',
+        second_head: 'builder_el_preheader_comment'
       },
       defaultOptions: {
         align: 'center',
@@ -77,8 +77,8 @@ const emailBuilderConfigurations = {
       template: `<table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;background-color:{{element.options.backgroundColor}}" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
-                      <td style="vertical-align:top;width:600px;">
-                        <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:10px 20px;" align="center"><div style="cursor:auto;color:{{element.options.color}};font-family:{{element.options.font.family}};font-size:{{element.options.font.size}}px;font-weight:{{element.options.font.weight}};line-height:13px;text-align:{{element.options.align}};"><!-- text -->
+                      <td style="vertical-align:top;width:600px;text-align:{{element.options.align}};">
+                        <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:10px 20px;" align="center"><div style="cursor:auto;color:{{element.options.color}};font-family:{{element.options.font.family}};font-size:{{element.options.font.size}}px;font-weight:{{element.options.font.weight}};line-height:13px;"><!-- text -->
                         <br>{{element.options.title}}
                         </div></td></tr></tbody></table></div><!--[if mso | IE]>
                       </td></tr></table>
@@ -92,8 +92,8 @@ const emailBuilderConfigurations = {
       element: {
         type: 'header-logo',
         icon: '&#xE165;',
-        primary_head: 'Header Logo',
-        second_head: 'builder_header-logo_comment'
+        primary_head: 'builder_el_header_logo',
+        second_head: 'builder_el_header_logo_comment'
       },
       defaultOptions: {
         backgroundColor: '#7b2b2b',
@@ -138,45 +138,132 @@ const emailBuilderConfigurations = {
                     </tbody>
                   </table>`
     },
-    'double-text_double-cta': {
-      type: 'double-text_double-cta',
-      sort: 13,
+    'double-text-double-cta': {
+      type: 'double-text-double-cta',
+      sort: 8,
       element: {
-        type: 'preheader',
-        icon: '&#xE165;',
-        primary_head: 'builder_double-text_double-cta',
-        second_head: 'builder_double-text_double-cta_comment'
+        type: 'double-text-double-cta',
+        icon: 'text_fields',
+        primary_head: 'builder_el_double_text_double_cta',
+        second_head: 'builder_el_double_text_double_cta_comment'
       },
       defaultOptions: {
+        padding: ["15px", "15px", "15px", "15px"],
+        image1: 'assets/imgs/255x154.jpg',
+        image2: 'assets/imgs/255x154.jpg',
+        width1: '255',
+        width2: '255',
+        backgroundColor: '#ffffff',
+        altTag1: '',
+        altTag2: '',
+        linkTo1: {
+          type: 'none',
+          typeOptions: ['link', 'email', 'none'],
+          link: ''
+        },
+        linkTo2: {
+          type: 'none',
+          typeOptions: ['link', 'email', 'none'],
+          link: ''
+        },
+        border: {
+          size: 5,
+          color: '#E1E1E1',
+          style: 'solid',
+          styleOptions: ['dotted', 'solid', 'dashed']
+        },
+        text1: '<p style="line-height: 20px;margin:0"">Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>',
+        text2: '<p style="line-height: 20px;margin:0"">Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>',
+        font: {
+          size: 15,
+          color: '#ffffff',
+          weight: 'normal',
+          weightOptions: ['bold', 'bolder', 'lighter', 'inherit', 'initial', 'normal', 100, 200, 300, 400, 500, 600, 700, 800, 900],
+          family: 'inherit',
+          familyOptions: defaultFontFamily
+        },
+        buttonBackgroundColor1: '#3498DB',
+        buttonBackgroundColor2: '#3498DB',
+        buttonText1: 'Click me',
+        buttonText2: 'Click me',
+        url1: '#',
+        url2: '#'
       },
-      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;border:5px solid #E1E1E1;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
-                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td style="vertical-align:top;width:300px;">
-                <![endif]--><div class="mj-column-per-50 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:300px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="300"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:separate;" align="center" border="0"><tbody><tr><td style="border:none;border-radius:0px;color:;cursor:auto;padding:15px 30px;" align="center" valign="middle" bgcolor=""><p style="text-decoration:none;background:;color:;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:16px;font-weight:bold;line-height:120%;text-transform:uppercase;margin:0px;"><!-- button --></p></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
-                </td><td style="vertical-align:top;width:300px;">
-                <![endif]--><div class="mj-column-per-50 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:300px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="300"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:separate;" align="center" border="0"><tbody><tr><td style="border:none;border-radius:0px;color:;cursor:auto;padding:15px 30px;" align="center" valign="middle" bgcolor=""><p style="text-decoration:none;background:;color:;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:16px;font-weight:bold;line-height:120%;text-transform:uppercase;margin:0px;"><!-- button --></p></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
-                </td></tr></table>
-                <![endif]--></td></tr></tbody></table></div>`
+      template: `<table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="{{element.options.backgroundColor}}" align="center" data-type="imageText2x2Template" style="border-top: {{element.options.border.size}}px solid {{element.options.border.color}};">
+                    <tbody style="display: table-cell;padding: {{ element.options.padding | arrToPadding }}">
+                      <tr>
+                        <td width="295" style="padding-left: 5px;"> 
+                          <img image-with-link link="element.options.linkTo1" ng-src="{{ element.options.image1 }}" width="{{ element.options.width1 }}" alt="{{element.options.altTag1}}" style="max-width: 100%" border="0">
+                        </td>
+                        <td width="10"></td>
+                        <td width="295" style="padding-right: 5px;"> 
+                          <img image-with-link link="element.options.linkTo2" ng-src="{{ element.options.image2 }}" width="{{ element.options.width2 }}" alt="{{element.options.altTag2}}" style="max-width: 100%" border="0">                
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="295" align="left" style="font-family: Arial;font-size: 13px;color: #000000;line-height: 20px;padding-left: 5px;" ui-tinymce="tinymceOptions" ng-model="element.options.text1"></td>
+                        <td width="10"></td>
+                        <td width="295" align="left" style="font-family: Arial;font-size: 13px;color: #000000;line-height: 20px;padding-right: 5px;" ui-tinymce="tinymceOptions" ng-model="element.options.text2"></td>
+                      </tr>
+                      <tr><td width="295" class="button" style="padding: 15px;text-align:center;">\n                        <a style="border-radius:4px;background-color: {{element.options.buttonBackgroundColor1}};color: {{element.options.font.color}};font-family: {{element.options.font.family}};font-size: {{element.options.font.size}}px;line-height:19px;display:inline-block;text-align: center;text-decoration: none;font-weight:  {{element.options.font.weight}};margin: 0; width: auto; padding: 12px 20px" class="button-1" href="{{ element.options.url1 }}" data-default="1">{{ element.options.buttonText1 }}</a>                   <!--[if mso]>             </center>           </v:roundrect>         <![endif]-->\n                    </td>
+                      <td width="10"></td>
+                      <td width="295" class="button" style="padding: 15px;text-align:center">\n                        <a style="border-radius:4px;background-color: {{element.options.buttonBackgroundColor2}};color: {{element.options.font.color}};font-family: {{element.options.font.family}};font-size: {{element.options.font.size}}px;line-height:19px;display:inline-block;text-align: center;text-decoration: none;font-weight:  {{element.options.font.weight}};margin: 0; width: auto; padding: 12px 20px;" class="button-1" href="{{ element.options.url2 }}" data-default="1">{{ element.options.buttonText2 }}</a>                   <!--[if mso]>             </center>           </v:roundrect>         <![endif]-->\n                    </td>
+                      </tr>
+                      </tr>
+                    </tbody>
+                  </table>`
     },
     'icon': {
       type: 'icon',
       sort: 15,
       element: {
-        type: 'preheader',
+        type: 'icon',
         icon: '&#xE165;',
-        primary_head: 'builder_icon',
-        second_head: 'builder_icon_comment'
+        primary_head: 'builder_el_icon',
+        second_head: 'builder_el_icon_comment'
       },
       defaultOptions: {
+        align: 'center',
+        padding: ["0", "0", "0", "0"],
+        image: 'assets/imgs/icon.png',
+        width: '50',
+        backgroundColor: '#ffffff',
+        color: '#333',
+        text: 'Icon',
+        font: {
+          size: 13,
+          weight: 'normal',
+          weightOptions: ['bold', 'bolder', 'lighter', 'inherit', 'initial', 'normal', 100, 200, 300, 400, 500, 600, 700, 800, 900],
+          family: 'inherit',
+          familyOptions: defaultFontFamily
+        },
+        linkTo: {
+          type: 'none',
+          typeOptions: ['link', 'email', 'none'],
+          link: ''
+        }
       },
-      template: `<div style="margin:0px auto;max-width:600px;" data-class=""><table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:0px;"><!--[if mso | IE]>
+      template: `<table role="presentation" cellpadding="0" cellspacing="0" style="font-size:0px;width:100%;" align="center" border="0"><tbody><tr><td style="padding: {{ element.options.padding | arrToPadding }};background-color:{{element.options.backgroundColor}};text-align:{{element.options.align}};vertical-align:top;direction:ltr;font-size:0px;"><!--[if mso | IE]>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
-                      <td style="vertical-align:top;width:600px;">
-                  <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center"><table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0"><tbody><tr><td style="width:600px;"><img alt="" height="auto" src="" style="border:none;border-radius:0px;display:block;font-size:13px;outline:none;text-decoration:none;width:100%;height:auto;" width="600"></td></tr></tbody></table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center"><div style="cursor:auto;color:#333333;font-family:Arial, Ubuntu, Helvetica, sans-serif;font-size:14px;line-height:18px;text-align:center;"><!-- text --></div></td></tr></tbody></table></div><!--[if mso | IE]>
+                      <td style="vertical-align:top;width:600px;text-align:{{element.options.align}};">
+                  <![endif]--><div class="mj-column-per-100 outlook-group-fix" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                  <tbody>
+                  <tr>
+                  <td style="word-wrap:break-word;font-size:0px;padding:0px;" align="center">
+                  <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0px;" align="center" border="0">
+                  <tbody>
+                  <tr>
+                  <td><img border="0" align="one_image" image-with-link link="element.options.linkTo" style="display:block;max-width:100%;" ng-style="{width: element.options.width}" alt="{{element.options.altTag}}" ng-src="{{ element.options.image }}" tabindex="0">
+                  </td>
+                  </tr>
+                  </tbody>
+                  </table></td></tr><tr><td style="word-wrap:break-word;font-size:0px;padding:0px 10px;" align="center">
+                  <h4 style="font-family: {{ element.options.font.family }};font-weight:  {{ element.options.font.weight }}; margin: 0; color: {{ element.options.color }};text-align: center;" ng-if="element.options.text.length">{{  element.options.text  }}</h4>
+                  </div></td></tr></tbody></table></div><!--[if mso | IE]>
                   </td></tr></table>
-                  <![endif]--></td></tr></tbody></table></div>`
+                  <![endif]--></td></tr></tbody></table>`
     },
     'double-icons': {
       type: 'double-icons',
@@ -184,8 +271,8 @@ const emailBuilderConfigurations = {
       element: {
         type: 'double-icons',
         icon: '&#xE165;',
-        primary_head: 'builder_double-icons',
-        second_head: 'builder_double-icons_comment'
+        primary_head: 'builder_el_double_icons',
+        second_head: 'builder_el_double_icons_comment'
       },
       defaultOptions: {
       },
@@ -205,8 +292,8 @@ const emailBuilderConfigurations = {
       element: {
         type: 'triple-icons',
         icon: '&#xE165;',
-        primary_head: 'builder_triple-icons',
-        second_head: 'builder_triple-icons_comment'
+        primary_head: 'builder_el_triple_icons',
+        second_head: 'builder_el_triple_icons_comment'
       },
       defaultOptions: {
       },
@@ -228,8 +315,8 @@ const emailBuilderConfigurations = {
       element: {
         type: 'quadruple-icons',
         icon: '&#xE165;',
-        primary_head: 'builder_quadruple-icons',
-        second_head: 'builder_quadruple-icons_comment'
+        primary_head: 'builder_el_quadruple_icons',
+        second_head: 'builder_el_quadruple_icons_comment'
       },
       defaultOptions: {
       },
@@ -272,8 +359,8 @@ const emailBuilderConfigurations = {
       element: {
         type: 'image-full_width',
         icon: '&#xE165;',
-        primary_head: 'builder_image-full_width',
-        second_head: 'builder_image-full_width_comment'
+        primary_head: 'builder_el_image_full_width',
+        second_head: 'builder_el_image_full_width_comment'
       },
       defaultOptions: {
       },
@@ -291,8 +378,8 @@ const emailBuilderConfigurations = {
       element: {
         type: 'subtitle',
         icon: '&#xE165;',
-        primary_head: 'builder_subtitle',
-        second_head: 'builder_subtitle_comment'
+        primary_head: 'builder_el_subtitle',
+        second_head: 'builder_el_subtitle_comment'
       },
       defaultOptions: {
       },
@@ -310,8 +397,8 @@ const emailBuilderConfigurations = {
       element: {
         type: 'text-content',
         icon: '&#xE165;',
-        primary_head: 'builder_text-content',
-        second_head: 'builder_text-content_comment'
+        primary_head: 'builder_el_text_content',
+        second_head: 'builder_el_text_content_comment'
       },
       defaultOptions: {
       },
@@ -329,8 +416,8 @@ const emailBuilderConfigurations = {
       element: {
         type: 'text-cta-with_border',
         icon: '&#xE165;',
-        primary_head: 'builder_text-cta-with_border',
-        second_head: 'builder_text-cta-with_border_comment'
+        primary_head: 'builder_el_text_cta_with_border',
+        second_head: 'builder_el_text_cta_with_border_comment'
       },
       defaultOptions: {
       },
@@ -348,8 +435,8 @@ const emailBuilderConfigurations = {
       element: {
         type: 'title-content',
         icon: '&#xE165;',
-        primary_head: 'builder_title-content',
-        second_head: 'builder_title-content_comment'
+        primary_head: 'builder_el_title_content',
+        second_head: 'builder_el_title_content_comment'
       },
       defaultOptions: {
       },
@@ -368,8 +455,8 @@ const emailBuilderConfigurations = {
       element: {
         type: 'mentions-legales',
         icon: '&#xE165;',
-        primary_head: 'builder_mentions-legales',
-        second_head: 'builder_mentions-legales_comment'
+        primary_head: 'builder_el_mentions_legales',
+        second_head: 'builder_el_mentions_legales_comment'
       },
       defaultOptions: {
       },
@@ -388,8 +475,8 @@ const emailBuilderConfigurations = {
       element: {
         type: 'frise',
         icon: '&#xE165;',
-        primary_head: 'builder_frise',
-        second_head: 'builder_frise_comment'
+        primary_head: 'builder_el_frise',
+        second_head: 'builder_el_frise_comment'
       },
       defaultOptions: {
       },

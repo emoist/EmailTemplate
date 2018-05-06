@@ -20,7 +20,7 @@
                             </div>
                         </div>
 
-                        <div class="block-properties" ng-if="['title', 'subTitle'].indexOf(key) > -1 || key.search('altTag') > -1 || key == 'buttonText'">
+                        <div class="block-properties" ng-if="['title', 'subTitle'].indexOf(key) > -1 || key.search('altTag') > -1 || key.search('buttonText') > -1">
                             <div class="form-row text-inputs">
                                 <label for="{{key}}" class="md-label">{{ key | translate }}</label>
                                 <input id="{{key}}" type="text" class="md-input" ng-model="currentElement.options[key]" />
@@ -49,7 +49,7 @@
                             <!--<button class="md-btn md-btn-custom">{{'add_another_network' | translate}}</button>-->
                         </div>
 
-                        <div class="block-properties" ng-if="key == 'url'">
+                        <div class="block-properties" ng-if="key.search('url') > -1">
                             <div class="form-row text-inputs">
                                 <label for="builder_el_o_url" translate="builder_el_o_url"></label>
                                 <input id="builder_el_o_url" type="url" class="md-input" ng-model="currentElement.options[key]" />
@@ -88,11 +88,11 @@
                             </div>
                         </div>
 
-                        <div class="block-properties" ng-if="key == 'backgroundColor' || key == 'color' || key == 'buttonBackgroundColor'">
+                        <div class="block-properties" ng-if="key == 'backgroundColor' || key == 'color' || key.search('buttonBackgroundColor') > -1">
                             <div class="form-row text-inputs">
                                 <label for="{{key}}" ng-if="key == 'backgroundColor'">{{ 'builder_el_o_background_color'  | translateCamelCase }}</label>
                                 <label for="{{key}}" ng-if="key == 'color'">{{ 'builder_el_o_text_color'  | translateCamelCase }}</label>
-                                <label for="{{key}}" ng-if="key == 'buttonBackgroundColor'">{{ 'builder_el_o_button_bg_color'  | translateCamelCase }}</label>
+                                <label for="{{key}}" ng-if="key.search('buttonBackgroundColor') > -1">{{ 'builder_el_o_button_bg_color'  | translateCamelCase }}</label>
                                 <div class="color-inputs">
                                     <span>HEX #</span>
                                     <color-input class="color-input-container" model="currentElement.options[key]"></color-input>
